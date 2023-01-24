@@ -4,11 +4,8 @@ const parkUrl = `${BASE_URL}/activities/parks?id=BFF8C027-7C8F-480B-A5F8-CD8CE49
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    const selectedPark = document.querySelector("#selectedPark")
-    const parksContainer = document.createElement("div")
-    parksContainer.setAttribute("id", "parks-collection")
 
-    document.body.append(parksContainer)
+    const parksContainer = document.querySelector("#parks-collection")
 
 
     function getParkInfo(parkCode) {
@@ -35,8 +32,8 @@ document.addEventListener("DOMContentLoaded", () => {
             const imageTag = document.createElement("img")
             const details = parkInfo["data"][0]
             imageTag.src = details["images"][0]["url"]
-            imageTag.style.width = "300px"
-            imageTag.style.height = "300px"
+            imageTag.style.width = "180px"
+            imageTag.style.height = "180px"
             parkTag.prepend(imageTag)
 
             const fee = details["entranceFees"][0]["cost"]
@@ -52,11 +49,8 @@ document.addEventListener("DOMContentLoaded", () => {
             // add event listener to parkTag
             parkTag.addEventListener("click", () => {
                 parksContainer.style.display = "none";
-                // parksContainer.innerHTML = ""
 
-
-                const detailsTag = document.createElement("div")
-                detailsTag.setAttribute("id", "details")
+                const detailsTag = document.querySelector("#details")
                 const detailImgTag = document.createElement("img")
                 detailImgTag.setAttribute("class", "detail-image")
                 detailImgTag.src = details["images"][1]["url"]
@@ -65,33 +59,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 nameDiv.setAttribute("id", "park-name")
                 nameDiv.innerHTML = park["name"]
 
+                const descriptionTag = document.createElement("p")
+                descriptionTag.setAttribute("id", "description")
+                descriptionTag.innerHTML = details["description"]
+                
 
-                detailsTag.append(detailImgTag, nameDiv)
-                document.body.append(detailsTag)
+
+                detailsTag.append(detailImgTag, nameDiv, descriptionTag)
 
             })
             
         })
-
-
-        
-        
-
-
-        
-
-        // parkTag.addEventListener("click", () => {
-        //     selectedPark.innerHTML = park.parkCode;
-        //     fetch(getParkUrl(park.parkCode))
-        //     .then(response => response.json())
-        //     .then(data => 
-        //         {
-        //         const parkData = data.data[0];
-        //         const images = parkData.images;
-        //         selectedPark.innerHTML = parkData.description + "</p>" + `<img src="${images[0].url}" width=400 height=400/>`
-        //         console.log(data)
-        //     })
-        // })
 
         parksContainer.append(parkTag)
     }

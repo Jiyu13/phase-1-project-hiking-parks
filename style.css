@@ -1,19 +1,25 @@
 body {
-    margin: 50px;
+    margin: 0px;
     font-family: Helvetica;
 }
 
-#parks-collection {
-    display:  flex;
-    flex-wrap: wrap;
-    padding: 40px calc((100% - (255px * 3)) / 3);
-    justify-content: center;
+a {
+    text-decoration: none
+}
+
+/* Class Selectors*/
+.detail-image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    height: auto;
 }
 
 .park {
     vertical-align: top;
-    width: 300px;
-    height: 400px; 
+    width: 150px;
+    height: 285px; 
     display: inline-block;
     text-align: center;
     background-color: #EEEEEE;
@@ -23,6 +29,44 @@ body {
     margin: 1em 20px;
 }
 
-a {
-    text-decoration: none
+/* ID Selectors */
+#parks-collection {
+    display:  flex;
+    flex-wrap: wrap;
+    padding: 40px calc((100% - (255px * 3)) / 2);
+    padding-left: 10px;
+    justify-content: center;
+}
+
+
+#park-name {
+    color: white;
+    font-size: 60px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 100px;
+}
+
+#details{
+    position: relative;
+    text-align: center;
+    margin: 0 10%;
+    justify-content: center;
+    display: flex;
+}
+
+
+/* @media */
+@media screen and (min-width: 601px) {
+    #park-name {
+        font-size: 80px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    #park-name {
+        font-size: 40px;
+    }
 }
