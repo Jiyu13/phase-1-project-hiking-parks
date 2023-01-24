@@ -23,27 +23,52 @@ document.addEventListener("DOMContentLoaded", () => {
         const parkTag = document.createElement("div")
         parkTag.className = "park"
 
-        
-
-        getParkInfo(parkCode).then(parkInfo => {
-            const imageTag = document.createElement("img")
-            imageTag.src = parkInfo["data"][0]["images"][0]["url"]
-            imageTag.style.width = "200px"
-            imageTag.style.height = "200px"
-
-            parkTag.prepend(imageTag)
-        })
-
-        
         const nameTag = document.createElement("h3")
         const a = document.createElement("a")
         a.href = park["url"]
         a.innerHTML = park["name"]
         nameTag.append(a)
-
-
         parkTag.append(nameTag)
+        
 
+        getParkInfo(parkCode).then(parkInfo => {
+            const imageTag = document.createElement("img")
+            const details = parkInfo["data"][0]
+            imageTag.src = details["images"][0]["url"]
+            imageTag.style.width = "300px"
+            imageTag.style.height = "300px"
+            parkTag.prepend(imageTag)
+
+            const fee = details["entranceFees"][0]["cost"]
+            const operatingHour = details["operatingHours"]
+            const p = document.createElement("p")
+            if (fee === "0.00") {
+                p.innerHTML = `Park Code:${parkCode} | Free`
+            } else {
+                p.innerHTML = `Park Code:${parkCode}| $${fee}`
+            }
+            parkTag.append(p)
+            
+        })
+
+        
+        
+
+
+        
+
+        // parkTag.addEventListener("click", () => {
+        //     selectedPark.innerHTML = park.parkCode;
+        //     fetch(getParkUrl(park.parkCode))
+        //     .then(response => response.json())
+        //     .then(data => 
+        //         {
+        //         const parkData = data.data[0];
+        //         const images = parkData.images;
+        //         selectedPark.innerHTML = parkData.description + "</p>" + `<img src="${images[0].url}" width=400 height=400/>`
+        //         console.log(data)
+        //     })
+        // })
 
         parksContainer.append(parkTag)
     }
