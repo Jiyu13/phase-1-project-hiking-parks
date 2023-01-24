@@ -8,17 +8,9 @@ a {
 }
 
 /* Class Selectors*/
-.detail-image {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 100%;
-    height: auto;
-}
-
 .park {
     vertical-align: top;
-    width: 150px;
+    width: 180px;
     height: 285px; 
     display: inline-block;
     text-align: center;
@@ -30,31 +22,54 @@ a {
 }
 
 /* ID Selectors */
+#wrap {
+    vertical-align: top;
+}
+
 #parks-collection {
-    display:  flex;
+    display: inline-block;
+    max-width: 45%;
+    text-align: end;
+    /* display:  flex;
     flex-wrap: wrap;
-    padding: 40px calc((100% - (255px * 3)) / 2);
+    padding: 40px calc((100% - (255px * 3)) / 1);
     padding-left: 10px;
     justify-content: center;
+    float: left;
+    height: 100px;  */
+    /* display: inline-block; */
 }
 
-
-#park-name {
-    color: white;
-    font-size: 60px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 100px;
-}
 
 #details{
-    position: relative;
+    display: inline-block;
+    max-width: 45%;
+    vertical-align: top;
+    margin-top: 20px;
+    /* position: relative;
     text-align: center;
     margin: 0 10%;
     justify-content: center;
-    display: flex;
+    margin-left: 50%; 
+    height: 100px; 
+    width: 20%; */
+}
+
+#detail-image {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    height: auto;
+}
+
+#park-name {
+    color: white;
+    /* position: absolute; */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 50px;
 }
 
 

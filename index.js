@@ -48,11 +48,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // add event listener to parkTag
             parkTag.addEventListener("click", () => {
-                parksContainer.style.display = "none";
+                // parksContainer.style.display = "none";
+
 
                 const detailsTag = document.querySelector("#details")
+                // detailsTag.style.display = ""
+
                 const detailImgTag = document.createElement("img")
-                detailImgTag.setAttribute("class", "detail-image")
+                detailImgTag.setAttribute("id", "detail-image")
                 detailImgTag.src = details["images"][1]["url"]
                 
                 const nameDiv = document.createElement("div")
