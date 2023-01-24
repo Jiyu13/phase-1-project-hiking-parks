@@ -1,3 +1,38 @@
+
+/* .box{
+    width: 100%;
+    height: 100%;
+    border: 5px solid black;}
+     */
+
+
+     .container{
+        width: 100%;
+        height: 100%;
+        padding-top: 3%;
+        display: flex;
+        justify-content: center;
+    }
+    
+    .img1{
+        position: relative;
+        width:80%;
+        height:100%;
+    }
+    
+    .img2{
+        height: auto;
+        max-width: 50%;
+        position: absolute;
+        top: 20%;
+    }
+    
+    .map-x-pin {
+        background-color: black; /* So we can see where the pixel is */
+        height: 20px;
+        position: absolute;
+        width: 20px;}
+
 body {
     margin: 0px;
     font-family: Helvetica;
