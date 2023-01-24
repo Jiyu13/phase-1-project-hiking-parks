@@ -7,6 +7,10 @@ a {
     text-decoration: none
 }
 
+ul {
+    list-style-type: none;
+}
+
 /* Class Selectors*/
 .park {
     vertical-align: top;
@@ -30,14 +34,6 @@ a {
     display: inline-block;
     max-width: 45%;
     text-align: end;
-    /* display:  flex;
-    flex-wrap: wrap;
-    padding: 40px calc((100% - (255px * 3)) / 1);
-    padding-left: 10px;
-    justify-content: center;
-    float: left;
-    height: 100px;  */
-    /* display: inline-block; */
 }
 
 
@@ -46,42 +42,36 @@ a {
     max-width: 45%;
     vertical-align: top;
     margin-top: 20px;
-    /* position: relative;
-    text-align: center;
-    margin: 0 10%;
-    justify-content: center;
-    margin-left: 50%; 
-    height: 100px; 
-    width: 20%; */
+
 }
 
-#detail-image {
+/* #detail-image {
     display: block;
     margin-left: auto;
     margin-right: auto;
     width: 100%;
     height: auto;
-}
+} */
 
-#park-name {
-    color: white;
+/* #park-name {
+    color: white; */
     /* position: absolute; */
-    top: 50%;
+    /* top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 50px;
-}
+} */
 
 
 /* @media */
-@media screen and (min-width: 601px) {
+/* @media screen and (min-width: 601px) {
     #park-name {
         font-size: 80px;
     }
-}
+} */
 
-@media screen and (max-width: 600px) {
+/* @media screen and (max-width: 600px) {
     #park-name {
         font-size: 40px;
     }
-}
+} */
