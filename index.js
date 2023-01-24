@@ -43,13 +43,36 @@ document.addEventListener("DOMContentLoaded", () => {
             const operatingHour = details["operatingHours"]
             const p = document.createElement("p")
             if (fee === "0.00") {
-                p.innerHTML = `Park Code:${parkCode} | Free`
+                p.innerHTML = `Park Code: ${parkCode} | Free`
             } else {
-                p.innerHTML = `Park Code:${parkCode}| $${fee}`
+                p.innerHTML = `Park Code: ${parkCode}| $${fee}`
             }
             parkTag.append(p)
+
+            // add event listener to parkTag
+            parkTag.addEventListener("click", () => {
+                parksContainer.style.display = "none";
+                // parksContainer.innerHTML = ""
+
+
+                const detailsTag = document.createElement("div")
+                detailsTag.setAttribute("id", "details")
+                const detailImgTag = document.createElement("img")
+                detailImgTag.setAttribute("class", "detail-image")
+                detailImgTag.src = details["images"][1]["url"]
+                
+                const nameDiv = document.createElement("div")
+                nameDiv.setAttribute("id", "park-name")
+                nameDiv.innerHTML = park["name"]
+
+
+                detailsTag.append(detailImgTag, nameDiv)
+                document.body.append(detailsTag)
+
+            })
             
         })
+
 
         
         
