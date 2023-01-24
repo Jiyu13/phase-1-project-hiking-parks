@@ -8,8 +8,17 @@
     </head>
 
     <body>
-        <div id="parks-collection"></div>
-        <div id="details">
+
+        <label for="select-parks">Sort:</label>
+        <select name="select-parks" id="park-dropdown">
+            <option value="price">Price</option>
+            <option value="Name">Name</option>
+        </select>
+
+        <hr>
+        <div id="wrap">
+            <div id="parks-collection"></div>
+            <div id="details"></div>
         </div>
     </body>
 </html>
