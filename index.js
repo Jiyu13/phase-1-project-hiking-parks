@@ -8,6 +8,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const parksContainer = document.querySelector("#parks-collection")
 
 
+
+
     function getParkInfo(parkCode) {
         return fetch(`${BASE_URL}/parks?parkCode=${parkCode}&api_key=${API_KEY}`)
         .then(response => response.json())
@@ -28,6 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
         getParkInfo(parkCode).then(parkInfo => {
             const imageTag = document.createElement("img")
             const details = parkInfo["data"][0]
+
             imageTag.src = details["images"][0]["url"]
             imageTag.style.width = "180px"
             imageTag.style.height = "180px"
@@ -40,6 +43,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 const detailsTag = document.querySelector("#details")
 
+                // add close pop-up btn
+                const closeBtn = document.createElement("button")
+                closeBtn.setAttribute("id", "x")
+                closeBtn.innerHTML = "X"
+                closeBtn.addEventListener("click", () => {
+                    detailsTag.innerHTML = ""
+                })
+                
+
                 // show image
                 const detailImgTag = document.createElement("img")
                 detailImgTag.setAttribute("id", "detail-image")
@@ -49,6 +61,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 const nameDiv = document.createElement("div")
                 nameDiv.setAttribute("id", "park-name")
                 nameDiv.innerHTML = park["name"]
+
+                // show fee
+                const feeDiv = document.createElement("div")
+                const fee = details["entranceFees"][0]["cost"]
+                console.log(details)
+                feeDiv.innerHTML = `Entrance Fees: $${fee}`
+
 
                 // show descriotion
                 const descriptionTag = document.createElement("p")
@@ -99,18 +118,18 @@ document.addEventListener("DOMContentLoaded", () => {
                     closureli.value = i
                     closureli.innerHTML = exceptions[i]["name"]
                     closureUl.append(closureli)
-                    console.log(closureli)
                 }
 
-
-                detailsTag.append(detailImgTag, nameDiv, descriptionTag, operatingHoursTag, closureTag)
+                detailsTag.append(closeBtn, detailImgTag, nameDiv, feeDiv, descriptionTag, operatingHoursTag, closureTag)
 
             })
             
         })
 
         parksContainer.append(parkTag)
+        
     }
+
 
 
     function getVAParks(parks) {
