@@ -7,16 +7,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const parksContainer = document.querySelector("#parks-collection")
 
-
-
-
     function getParkInfo(parkCode) {
         return fetch(`${BASE_URL}/parks?parkCode=${parkCode}&api_key=${API_KEY}`)
         .then(response => response.json())
     }
     
 
+
     function renderEachPark(park) {
+
         const parkCode = park["parkCode"]
 
         const parkTag = document.createElement("div")
@@ -26,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
         nameTag.innerHTML = park["name"]
         parkTag.append(nameTag)
 
-
+        
         getParkInfo(parkCode).then(parkInfo => {
             const imageTag = document.createElement("img")
             const details = parkInfo["data"][0]
@@ -35,6 +34,15 @@ document.addEventListener("DOMContentLoaded", () => {
             imageTag.style.width = "180px"
             imageTag.style.height = "180px"
             parkTag.prepend(imageTag)
+
+            const fee = details["entranceFees"][0]["cost"]
+            const p = document.createElement("p")
+            if (fee === "0.00") {
+                p.innerHTML = `$${fee}`
+            } else {
+                p.innerHTML = `$${fee}`
+            }
+            parkTag.append(p)
 
 
             // add event listener to parkTag
@@ -65,7 +73,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 // show fee
                 const feeDiv = document.createElement("div")
                 const fee = details["entranceFees"][0]["cost"]
-                console.log(details)
                 feeDiv.innerHTML = `Entrance Fees: $${fee}`
 
 
@@ -123,24 +130,50 @@ document.addEventListener("DOMContentLoaded", () => {
                 detailsTag.append(closeBtn, detailImgTag, nameDiv, feeDiv, descriptionTag, operatingHoursTag, closureTag)
 
             })
-            
+                
         })
 
         parksContainer.append(parkTag)
         
+        
     }
 
-
-
+    let vaParks = []
     function getVAParks(parks) {
-        let vaParks = []
+        
         parks.forEach(park => {
             if (park.states === "VA") {
                 vaParks.push(park)
                 renderEachPark(park)
             }
         })
+
+        // add filter event listener on 'select' tag
+        const select = document.querySelector("#park-dropdown")
+        select.addEventListener("change", (event) => {
+            const currentOption = event.target.value
+            console.log(currentOption)
+            filter(currentOption)
+        })
+        
+        
+        
+        // filter function
+        // #parks-collection > div:nth-child(1) > p
+        function filter(currentOption) {
+            const parksContainer = document.querySelector("#parks-collection")
+            console.log(parksContainer)
+            for (let i = 0; i<parksContainer.length; i++) {
+                if (currentOption === "Price") {
+                    console.log(parksContainer[i])
+                    // parksContainer[i].style.display = ""
+                } else {
+                    parksContainer[i].style.display = "none"
+                }
+            }
+        }
     }
+   
 
 
     function getParks() {
