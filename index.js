@@ -56,8 +56,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 descriptionTag.innerHTML = details["description"]
 
                 // show operating hours
-                const operatingHoursTag = document.createElement("ul")
+                const operatingHoursTag = document.createElement("div")
                 operatingHoursTag.setAttribute("id", "hour-table")
+                operatingHoursTag.innerHTML = "Operating Hours:"
+
+                const openingUl  = document.createElement("ul")
+                operatingHoursTag.append(openingUl)
                 const hours = details["operatingHours"][0]["standardHours"]
                 const sunday = hours["sunday"]
                 const monday = hours["monday"]
@@ -69,9 +73,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 const hoursList = [sunday, monday, tuesday, wednesday, thursday, friday, saturday]
 
                 for (let i=1; i <= Object.keys(hours).length; i++) {
-                    const li = document.createElement("li")
-                    li.value = i
-                    operatingHoursTag.append(li)
+                    const openingli = document.createElement("li")
+                    openingli.value = i
+                    openingUl.append(openingli)
                 }
                 const lis = operatingHoursTag.getElementsByTagName("li")
 
@@ -79,7 +83,27 @@ document.addEventListener("DOMContentLoaded", () => {
                 for (let i=0; i < lis.length; i++) {
                     lis[i].textContent = `${allDays[i]}: ${hoursList[i]}`
                 }
-                detailsTag.append(detailImgTag, nameDiv, descriptionTag, operatingHoursTag)
+
+
+                // Closures:
+                const closureTag = document.createElement("div")
+                closureTag.id = "closure-table"
+                closureTag.innerHTML = "CLOSURES EXCEPTIONS"
+
+                const closureUl  = document.createElement("ul")
+                closureTag.append(closureUl)
+
+                const exceptions = details["operatingHours"][0]["exceptions"]
+                for (let i=0; i < Object.keys(exceptions).length; i++) {
+                    const closureli = document.createElement("li")
+                    closureli.value = i
+                    closureli.innerHTML = exceptions[i]["name"]
+                    closureUl.append(closureli)
+                    console.log(closureli)
+                }
+
+
+                detailsTag.append(detailImgTag, nameDiv, descriptionTag, operatingHoursTag, closureTag)
 
             })
             
