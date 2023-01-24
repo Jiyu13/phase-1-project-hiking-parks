@@ -21,12 +21,9 @@ document.addEventListener("DOMContentLoaded", () => {
         parkTag.className = "park"
 
         const nameTag = document.createElement("h3")
-        const a = document.createElement("a")
-        a.href = park["url"]
-        a.innerHTML = park["name"]
-        nameTag.append(a)
+        nameTag.innerHTML = park["name"]
         parkTag.append(nameTag)
-        
+
 
         getParkInfo(parkCode).then(parkInfo => {
             const imageTag = document.createElement("img")
@@ -36,39 +33,53 @@ document.addEventListener("DOMContentLoaded", () => {
             imageTag.style.height = "180px"
             parkTag.prepend(imageTag)
 
-            const fee = details["entranceFees"][0]["cost"]
-            const operatingHour = details["operatingHours"]
-            const p = document.createElement("p")
-            if (fee === "0.00") {
-                p.innerHTML = `Park Code: ${parkCode} | Free`
-            } else {
-                p.innerHTML = `Park Code: ${parkCode}| $${fee}`
-            }
-            parkTag.append(p)
 
             // add event listener to parkTag
             parkTag.addEventListener("click", () => {
-                // parksContainer.style.display = "none";
-
+                parksContainer.style.display = "none";
 
                 const detailsTag = document.querySelector("#details")
-                // detailsTag.style.display = ""
 
+                // show image
                 const detailImgTag = document.createElement("img")
                 detailImgTag.setAttribute("id", "detail-image")
                 detailImgTag.src = details["images"][1]["url"]
                 
+                // show park name
                 const nameDiv = document.createElement("div")
                 nameDiv.setAttribute("id", "park-name")
                 nameDiv.innerHTML = park["name"]
 
+                // show descriotion
                 const descriptionTag = document.createElement("p")
                 descriptionTag.setAttribute("id", "description")
                 descriptionTag.innerHTML = details["description"]
-                
 
+                // show operating hours
+                const operatingHoursTag = document.createElement("ul")
+                operatingHoursTag.setAttribute("id", "hour-table")
+                const hours = details["operatingHours"][0]["standardHours"]
+                const sunday = hours["sunday"]
+                const monday = hours["monday"]
+                const tuesday = hours["tuesday"]
+                const wednesday = hours["wednesday"]
+                const thursday = hours["thursday"]
+                const friday = hours["friday"]
+                const saturday = hours["saturday"]
+                const hoursList = [sunday, monday, tuesday, wednesday, thursday, friday, saturday]
 
-                detailsTag.append(detailImgTag, nameDiv, descriptionTag)
+                for (let i=1; i <= Object.keys(hours).length; i++) {
+                    const li = document.createElement("li")
+                    li.value = i
+                    operatingHoursTag.append(li)
+                }
+                const lis = operatingHoursTag.getElementsByTagName("li")
+
+                const allDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+                for (let i=0; i < lis.length; i++) {
+                    lis[i].textContent = `${allDays[i]}: ${hoursList[i]}`
+                }
+                detailsTag.append(detailImgTag, nameDiv, descriptionTag, operatingHoursTag)
 
             })
             
