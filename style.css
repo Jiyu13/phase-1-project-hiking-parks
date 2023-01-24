@@ -1,0 +1,24 @@
+body {
+    margin: 5px;
+    font-family: Helvetica;
+}
+
+#parks-collection {
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+.park {
+    vertical-align: top;
+    width: 200px;
+    height: 300px;
+    margin: 5px;
+    display: inline-block;
+    text-align: center;
+    background-color: #EEEEEE;
+    border-radius: 5px;
+}
+
+a {
+    text-decoration: none
+}
