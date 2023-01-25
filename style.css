@@ -34,8 +34,12 @@ ul {
 
 .arrow {
     height: auto;
-    width: 50px;
     position: absolute;
+}
+
+.arrowImg{
+    width: 50px;
+
 }
 
 
@@ -58,6 +62,8 @@ ul {
     list-style: none;
     flex: 0 0 215px;
     margin: 1em 20px;
+    position: relative;
+    z-index: 10px;
 }
 
 /* ID Selectors */
