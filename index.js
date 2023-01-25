@@ -1,3 +1,4 @@
+const API_KEY = 'iBJukOptIxcWGqoclgSIDylXcBS7qpIUncziO0GW'
 const BASE_URL = `https://developer.nps.gov/api/v1`
 const parkUrl = `${BASE_URL}/activities/parks?id=BFF8C027-7C8F-480B-A5F8-CD8CE490BFBA&api_key=${API_KEY}`
 
@@ -22,6 +23,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     function renderEachPark(park) {
+
+        console.log(park);
 
         const parkCode = park["parkCode"]
 
@@ -51,17 +54,36 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             parkTag.append(p)
 
+            const latitude = details["latitude"];
+            const longitude = details["longitude"];
+            const latPx = .00743; //this is the number of degrees latitude/pixel
+            const longPx = .009125; //this is the number of degrees longitude/pixel
+            const latDiff = 39.2 - latitude;
+            const longDiff = Math.abs(-83.3 - (longitude));
+            const latitudeInPx = latDiff/latPx;
+            const longitudeInPx = longDiff/longPx;
+
+            
+
+
             //////////////////////////////////////////////////////////////
 
             const imgs = document.querySelector("#map-container");
 
-            const parkPoint = document.createElement("img")
-            parkPoint.src = "Images\\pngwing.png"
-            parkPoint.setAttribute("class", "arrow");
-            parkPoint.style.top = Math.random() * 400
-            parkPoint.style.left = Math.random() * 400 + 300
+            // const parkPoint = document.createElement("img")
+            // parkPoint.src = "Images\\pngwing.png"
+            // parkPoint.setAttribute("class", "arrow");
+
+            const parkPoint = document.createElement("div");
+            parkPoint.classList.add("card");
+            parkPoint.setAttribute('id','parkMarker');
+            parkPoint.innerHTML = park["name"];
+
+
+            parkPoint.style.top = latitudeInPx;
+            parkPoint.style.left = longitudeInPx; 
     
-            imgs.appendChild(parkPoint)
+            imgs.appendChild(parkPoint);
             /////////////////////////////////////////////////////////////////////
     
 
