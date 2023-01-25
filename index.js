@@ -138,6 +138,11 @@ function renderPark(park) {
         // add event listener to parkTag
         parkTag.addEventListener("click", () => {
             const detailsTag = document.querySelector("#details")
+
+            // create contents div for detail text content
+            const contents = document.createElement("div")
+            contents.setAttribute("class", "contents")
+            
             detailsTag.style.display = "block"
 
             // add close pop-up btn
@@ -194,7 +199,6 @@ function renderPark(park) {
                 openingUl.append(openingli)
             }
             const lis = operatingHoursTag.getElementsByTagName("li")
-            console.log(lis)
 
             const allDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
             for (let i=0; i < lis.length; i++) {
@@ -218,7 +222,10 @@ function renderPark(park) {
                 closureUl.append(closureli)
             }
 
-            detailsTag.append(closeBtn, detailImgTag, nameDiv, feeDiv, descriptionTag, operatingHoursTag, closureTag)
+            detailsTag.append(detailImgTag)
+
+            contents.append(closeBtn, nameDiv, feeDiv, descriptionTag, operatingHoursTag, closureTag)
+            detailsTag.append(contents)
 
         })
             
