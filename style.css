@@ -1,49 +1,3 @@
-/* .box{
-width: 100%;
-height: 100%;
-border: 5px solid black;}
-    */
-
-
-.container {
-    width: 100%;
-    padding-top: 3%;
-    display: flex;
-    justify-content: center;
-}
-
-#map-container {
-    position: relative;
-    height: 410px;
-}
-#map {
-    width: 900px;
-    height: 400px;
-}
-
-.arrow {
-    height: auto;
-    width: 50px;
-    position: absolute;
-}
-
-#arrow1 {
-    top: 300px;
-    left: 300px;
-}
-
-#arrow2 {
-    top: 300px;
-    left: 500px;
-}
-
-.map-x-pin {
-    background-color: black; /* So we can see where the pixel is */
-    height: 20px;
-    position: absolute;
-    width: 20px;
-}
-
 body {
     margin: 0px;
     font-family: Helvetica;
@@ -70,6 +24,29 @@ ul {
 
 
 /* Class Selectors*/
+.container {
+    width: 100%;
+    padding-top: 3%;
+    display: flex;
+    justify-content: center;
+}
+
+
+.arrow {
+    height: auto;
+    width: 50px;
+    position: absolute;
+}
+
+
+.map-x-pin {
+    background-color: black; /* So we can see where the pixel is */
+    height: 20px;
+    position: absolute;
+    width: 20px;
+}
+
+
 .park {
     vertical-align: top;
     width: 180px;
@@ -84,6 +61,17 @@ ul {
 }
 
 /* ID Selectors */
+
+#map-container {
+    position: relative;
+    height: 410px;
+}
+#map {
+    width: 900px;
+    height: 400px;
+}
+
+
 #wrap {
     vertical-align: top;
 }
@@ -114,25 +102,3 @@ ul {
     right: -10px;
 }
 
-/* #park-name {
-    color: white; */
-/* position: absolute; */
-/* top: 50%;
-left: 50%;
-transform: translate(-50%, -50%);
-font-size: 50px;
-} */
-
-
-/* @media */
-/* @media screen and (min-width: 601px) {
-    #park-name {
-        font-size: 80px;
-    }
-} */
-
-/* @media screen and (max-width: 600px) {
-    #park-name {
-        font-size: 40px;
-    }
-} */
