@@ -36,6 +36,17 @@
 body {
     margin: 0px;
     font-family: Helvetica;
+    background-color: #ebe2c5;
+}
+
+.header {
+    padding: 1px;
+    text-align: center;
+    background: #3e5c3c;
+    color: white;
+    font-size: 30px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    
 }
 
 a {

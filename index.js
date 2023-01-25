@@ -104,7 +104,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     openingUl.append(openingli)
                 }
                 const lis = operatingHoursTag.getElementsByTagName("li")
-                console.log(lis)
 
                 const allDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
                 for (let i=0; i < lis.length; i++) {
@@ -154,7 +153,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const p = parksContainer.getElementsByTagName("p")
         freeCheckBox.addEventListener('change', () => {
         // if (freeCheckBox.checked) {
-            
+
             for (let i = 0; i< p.length; i++) {
                 if (freeCheckBox.checked && p[i].innerHTML !== "$0.00") {
                     p[i].parentElement.style.display = "none"
@@ -176,9 +175,9 @@ document.addEventListener("DOMContentLoaded", () => {
         //     console.log(currentOption)
         //     filter(currentOption)
         // })
-        
-        
-        
+
+
+
         // // filter function
         // // #parks-collection > div:nth-child(1) > p
         // function filter(currentOption) {
