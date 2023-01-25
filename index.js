@@ -7,6 +7,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const parksContainer = document.querySelector("#parks-collection")
 
+    // create pop-up
+    function popUpDetails() {
+        const popup = document.querySelector("details")
+        details.className.toggle("show")
+    }
+
+
     function getParkInfo(parkCode) {
         return fetch(`${BASE_URL}/parks?parkCode=${parkCode}&api_key=${API_KEY}`)
         .then(response => response.json())
@@ -43,6 +50,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 p.innerHTML = `$${fee}`
             }
             parkTag.append(p)
+
+            const imgs = document.querySelector("#map-container");
+
+            const parkPoint = document.createElement("img")
+            parkPoint.src = "Images\\pngwing.png"
+            parkPoint.setAttribute("class", "arrow");
+            parkPoint.style.top = Math.random() * 400
+            parkPoint.style.left = Math.random() * 400 + 300
+    
+            imgs.appendChild(parkPoint)
+    
 
 
             // add event listener to parkTag
@@ -104,6 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     openingUl.append(openingli)
                 }
                 const lis = operatingHoursTag.getElementsByTagName("li")
+                console.log(lis)
 
                 const allDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
                 for (let i=0; i < lis.length; i++) {
@@ -152,47 +171,16 @@ document.addEventListener("DOMContentLoaded", () => {
         const parksContainer = document.querySelector("#parks-collection")
         const p = parksContainer.getElementsByTagName("p")
         freeCheckBox.addEventListener('change', () => {
-        // if (freeCheckBox.checked) {
-
             for (let i = 0; i< p.length; i++) {
                 if (freeCheckBox.checked && p[i].innerHTML !== "$0.00") {
                     p[i].parentElement.style.display = "none"
-                }
-
-                else if (!freeCheckBox.checked) {
+                } else if (!freeCheckBox.checked) {
                     p[i].parentElement.style.display = ""
-                    console.log("false")
                 }
+
             }
+        });
 
-        // }
-    });
-
-        // // add filter event listener on 'select' tag
-        // const select = document.querySelector("#park-dropdown")
-        // select.addEventListener("change", (event) => {
-        //     const currentOption = event.target.value
-        //     console.log(currentOption)
-        //     filter(currentOption)
-        // })
-
-
-
-        // // filter function
-        // // #parks-collection > div:nth-child(1) > p
-        // function filter(currentOption) {
-        //     const parksContainer = document.querySelector("#parks-collection")
-        //     const lis = parksContainer.getElementsByTagName("p")
-        //     console.log(lis.length)
-        //     for (let i = 0; i<parksContainer.length; i++) {
-        //         if (currentOption === "Price") {
-        //             console.log(parksContainer[i])
-        //             // parksContainer[i].style.display = ""
-        //         } else if (currentOption === "Name"){
-        //             parksContainer[i].style.display = "none"
-        //         }
-        //     }
-        // }
     }
    
 
