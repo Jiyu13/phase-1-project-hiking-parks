@@ -1,4 +1,4 @@
-const API_KEY = 'iBJukOptIxcWGqoclgSIDylXcBS7qpIUncziO0GW'
+const API_KEY = ''
 const BASE_URL = `https://developer.nps.gov/api/v1`
 const parkUrl = `${BASE_URL}/activities/parks?id=BFF8C027-7C8F-480B-A5F8-CD8CE490BFBA&api_key=${API_KEY}`
 
