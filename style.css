@@ -1,37 +1,48 @@
-
 /* .box{
+width: 100%;
+height: 100%;
+border: 5px solid black;}
+    */
+
+
+.container {
     width: 100%;
-    height: 100%;
-    border: 5px solid black;}
-     */
+    padding-top: 3%;
+    display: flex;
+    justify-content: center;
+}
 
+#map-container {
+    position: relative;
+    height: 410px;
+}
+#map {
+    width: 900px;
+    height: 400px;
+}
 
-     .container{
-        width: 100%;
-        height: 100%;
-        padding-top: 3%;
-        display: flex;
-        justify-content: center;
-    }
-    
-    .img1{
-        position: relative;
-        width:80%;
-        height:100%;
-    }
-    
-    .img2{
-        height: auto;
-        max-width: 50%;
-        position: absolute;
-        top: 20%;
-    }
-    
-    .map-x-pin {
-        background-color: black; /* So we can see where the pixel is */
-        height: 20px;
-        position: absolute;
-        width: 20px;}
+.arrow {
+    height: auto;
+    width: 50px;
+    position: absolute;
+}
+
+#arrow1 {
+    top: 300px;
+    left: 300px;
+}
+
+#arrow2 {
+    top: 300px;
+    left: 500px;
+}
+
+.map-x-pin {
+    background-color: black; /* So we can see where the pixel is */
+    height: 20px;
+    position: absolute;
+    width: 20px;
+}
 
 body {
     margin: 0px;
@@ -46,7 +57,7 @@ body {
     color: white;
     font-size: 30px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    
+
 }
 
 a {
@@ -57,17 +68,12 @@ ul {
     list-style-type: none;
 }
 
-img{
-    max-width: 100%;
-    max-height: 100%;
-    display: block; /* remove extra space below image */
-}
 
 /* Class Selectors*/
 .park {
     vertical-align: top;
     width: 180px;
-    height: 285px; 
+    height: 285px;
     display: inline-block;
     text-align: center;
     background-color: #EEEEEE;
@@ -89,8 +95,8 @@ img{
 }
 
 
-#details{
-    max-width: 350px; 
+#details {
+    max-width: 350px;
     vertical-align: top;
     position: relative;
 }
@@ -110,11 +116,11 @@ img{
 
 /* #park-name {
     color: white; */
-    /* position: absolute; */
-    /* top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 50px;
+/* position: absolute; */
+/* top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+font-size: 50px;
 } */
 
 
