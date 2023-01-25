@@ -51,6 +51,8 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             parkTag.append(p)
 
+            //////////////////////////////////////////////////////////////
+
             const imgs = document.querySelector("#map-container");
 
             const parkPoint = document.createElement("img")
@@ -60,6 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
             parkPoint.style.left = Math.random() * 400 + 300
     
             imgs.appendChild(parkPoint)
+            /////////////////////////////////////////////////////////////////////
     
 
 
