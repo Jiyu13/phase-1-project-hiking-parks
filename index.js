@@ -6,19 +6,22 @@ document.addEventListener("DOMContentLoaded", () => {
     .then(parks => getVAParks(parks))
     .then(vaParks => vaParks.forEach(park => renderPark(park)))
 
+    // checkbox
     const freeCheckBox = document.querySelector("#free")
-    const parksContainer = document.querySelector("#parks-collection")
-    const p = parksContainer.getElementsByTagName("p")
     freeCheckBox.addEventListener('change', () => {
-        for (let i = 0; i< p.length; i++) {
-            if (freeCheckBox.checked && p[i].innerHTML !== "$0.00") {
-                p[i].parentElement.style.display = "none"
+        const costs = document.getElementsByClassName("show-fee")
+
+        for (let i = 0; i< costs.length; i++) {
+            const arrowImg = costs[i].parentNode.previousSibling
+            if (freeCheckBox.checked && costs[i].innerHTML !== "$0.00") {
+                arrowImg.style.display = "none"
             } else if (!freeCheckBox.checked) {
-                p[i].parentElement.style.display = ""
+                arrowImg.style.display = ""
             }
 
         }
     });
+
 })
 
 
@@ -74,6 +77,7 @@ function createDetailDiv(details, parkName) {
     parkTag.append(imageTag, nameTag)
 
     const showFee = document.createElement("p")
+    showFee.setAttribute("class", "show-fee")
     const fee = details["entranceFees"][0]["cost"]
     if (fee === "0.00") {
         showFee.innerHTML = `$${fee}`
@@ -97,6 +101,7 @@ function renderPark(park) {
 
         const details = parkInfo["data"][0]
         const parkTag = createDetailDiv(details, park["name"])
+        // console.log(parkTag)
 
 
         //////////////////////////////////////////////////////////////
@@ -113,6 +118,7 @@ function renderPark(park) {
         const parkSign = document.createElement("img")
         parkSign.setAttribute("class", "arrowImg")
         parkSign.src = "Images\\pngwing.png"
+
 
         // add arrow image and the park card div to the container
         parkContainer.appendChild(parkSign)
@@ -218,7 +224,3 @@ function renderPark(park) {
             
     })  
 }
-
-
-
-
