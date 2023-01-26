@@ -92,12 +92,25 @@ function createDetailDiv(details, parkName) {
 
 // show operating hours
 function operatingHours(details) {
-    const operatingHoursTag = document.createElement("div")
-    operatingHoursTag.setAttribute("id", "hour-table")
-    operatingHoursTag.innerHTML = "Operating Hours:"
+
+    const hourTable = document.createElement("div")
+    hourTable.setAttribute("class", "hour-table") // change id-class
+    
+
+    const openingHoursDiv = document.createElement("div")
+    openingHoursDiv.setAttribute("class", "opening-hours")
+    openingHoursDiv.innerHTML = "Operating Hours"
+    
+    // toggle hour table
+    hourTable.addEventListener("click", () => {
+        hourTable.classList.toggle("show-hours")
+    })
+
+    hourTable.append(openingHoursDiv)
 
     const openingUl  = document.createElement("ul")
-    operatingHoursTag.append(openingUl)
+    openingUl.setAttribute("class", "hour-list")
+    hourTable.append(openingUl)
     const hours = details["operatingHours"][0]["standardHours"]
     const sunday = hours["sunday"]
     const monday = hours["monday"]
@@ -113,24 +126,33 @@ function operatingHours(details) {
         openingli.value = i
         openingUl.append(openingli)
     }
-    const lis = operatingHoursTag.getElementsByTagName("li")
+    const lis = hourTable.getElementsByTagName("li")
 
     const allDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
     for (let i=0; i < lis.length; i++) {
         lis[i].textContent = `${allDays[i]}: ${hoursList[i]}`
     }
-    return operatingHoursTag
+
+
+
+    return hourTable
 }
 
 
 // Closure:
 function closure(details) {
-    const closureTag = document.createElement("div")
-    closureTag.id = "closure-table"
-    closureTag.innerHTML = "CLOSURES EXCEPTIONS"
+    const closureTable = document.createElement("div")
+    closureTable.className = "closure-table"
+    closureTable.innerHTML = "CLOSURES EXCEPTIONS"
+
+    // toggle closure table
+    closureTable.addEventListener("click", () => {
+        closureTable.classList.toggle("show-closure")
+    })
 
     const closureUl  = document.createElement("ul")
-    closureTag.append(closureUl)
+    closureUl.className = "closure-list"
+    closureTable.append(closureUl)
 
     const exceptions = details["operatingHours"][0]["exceptions"]
     if (exceptions.length !== 0) {
@@ -147,7 +169,7 @@ function closure(details) {
         moreInforLink.innerHTML = 'More info'
         closureUl.append(moreInforLink)
     }
-    return closureTag
+    return closureTable
 }
 
 
@@ -181,19 +203,15 @@ function renderPark(park) {
         const parkTag = createDetailDiv(details, park["name"])
         // console.log(parkTag)
 
-
         //////////////////////////////////////////////////////////////
         // show arrows
         const mapContainer = document.querySelector("#map-container");
-       
-        
 
         // create container for park info
         const parkContainer = document.createElement("div");
         parkContainer.setAttribute("class", "arrow")
         const latitude = details["latitude"];
         const longitude = details["longitude"];
-        
         
   
         parkContainer.style.top = latitudeToPx(latitude)
@@ -204,7 +222,6 @@ function renderPark(park) {
         const parkSign = document.createElement("img")
         parkSign.setAttribute("class", "arrowImg")
         parkSign.src = "Images\\pngwing.png"
-
 
 
         // add arrow image and the park card div to the container
@@ -274,19 +291,17 @@ function renderPark(park) {
                     readMoreBtn.innerHTML = "Read More"
                 }
             })
-
             descriptionTag.innerHTML = `${details["description"].substring(0, 100)} 
                                        <span class='more-text'>${details["description"].substring(100)}</span>
                                        `
             descriptionTag.append(readMoreBtn)
-
-
-            const operatingHoursTag = operatingHours(details)
             
-            const closureTag = closure(details)
+            const hourTable = operatingHours(details)
+            
+            const closureTable = closure(details)
             detailsTag.append(detailImgTag)
 
-            contents.append(closeBtn, nameDiv, feeDiv, descriptionTag, operatingHoursTag, closureTag)
+            contents.append(closeBtn, nameDiv, feeDiv, descriptionTag, hourTable, closureTable)
             detailsTag.append(contents)
         })
             

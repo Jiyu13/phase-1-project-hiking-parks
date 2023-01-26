@@ -23,23 +23,51 @@ ul {
 }
 
 /* Class Selectors*/
-/* -------------------------------- */
-.description.show-more .more-text {
+.closure-list {
+    display: none; 
+}
+
+.closure-table {
+    background-color: #E5E5CB;
+    padding-bottom: 10px;
+    cursor: pointer
+}
+
+.closure-table.show-closure .closure-list{
+    display: block;
+}
+
+.hour-list {
+    display: none;
+}
+
+.hour-table {
+    background-color: #B4CDE6;
+    padding-bottom: 10px;
+    cursor: pointer
+}
+.hour-table.show-hours .hour-list {
+    display: block;
+}
+
+.description.show-more .more-text {  /* target: more-text when description is show more */
     display: inline;
 
 }
+
+
 .more-text {
-    display: none;;
+    display: none;
 }
 
 .read-more-btn {
-    background-color: #ECE8DD;
+    background-color: #B5D5C5;
     cursor: pointer;
 }
-/* --------------------------- */
+
 
 .more-info {
-    background-color: #ECE8DD;
+    background-color: #B5D5C5;
 }
 
 .show-fee {
