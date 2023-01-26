@@ -91,6 +91,41 @@ function createDetailDiv(details, parkName) {
 
 }
 
+
+// show operating hours
+function operatingHours(details) {
+    const operatingHoursTag = document.createElement("div")
+    operatingHoursTag.setAttribute("id", "hour-table")
+    operatingHoursTag.innerHTML = "Operating Hours:"
+
+    const openingUl  = document.createElement("ul")
+    operatingHoursTag.append(openingUl)
+    console.log(details)
+    const hours = details["operatingHours"][0]["standardHours"]
+    const sunday = hours["sunday"]
+    const monday = hours["monday"]
+    const tuesday = hours["tuesday"]
+    const wednesday = hours["wednesday"]
+    const thursday = hours["thursday"]
+    const friday = hours["friday"]
+    const saturday = hours["saturday"]
+    const hoursList = [sunday, monday, tuesday, wednesday, thursday, friday, saturday]
+
+    for (let i=1; i <= Object.keys(hours).length; i++) {
+        const openingli = document.createElement("li")
+        openingli.value = i
+        openingUl.append(openingli)
+    }
+    const lis = operatingHoursTag.getElementsByTagName("li")
+
+    const allDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+    for (let i=0; i < lis.length; i++) {
+        lis[i].textContent = `${allDays[i]}: ${hoursList[i]}`
+    }
+    return operatingHoursTag
+}
+
+
 // Closure:
 function closure(details) {
     const closureTag = document.createElement("div")
@@ -196,36 +231,9 @@ function renderPark(park) {
             descriptionTag.setAttribute("id", "description")
             descriptionTag.innerHTML = details["description"]
 
-            // show operating hours
-            const operatingHoursTag = document.createElement("div")
-            operatingHoursTag.setAttribute("id", "hour-table")
-            operatingHoursTag.innerHTML = "Operating Hours:"
-
-            const openingUl  = document.createElement("ul")
-            operatingHoursTag.append(openingUl)
-            const hours = details["operatingHours"][0]["standardHours"]
-            const sunday = hours["sunday"]
-            const monday = hours["monday"]
-            const tuesday = hours["tuesday"]
-            const wednesday = hours["wednesday"]
-            const thursday = hours["thursday"]
-            const friday = hours["friday"]
-            const saturday = hours["saturday"]
-            const hoursList = [sunday, monday, tuesday, wednesday, thursday, friday, saturday]
-
-            for (let i=1; i <= Object.keys(hours).length; i++) {
-                const openingli = document.createElement("li")
-                openingli.value = i
-                openingUl.append(openingli)
-            }
-            const lis = operatingHoursTag.getElementsByTagName("li")
-
-            const allDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-            for (let i=0; i < lis.length; i++) {
-                lis[i].textContent = `${allDays[i]}: ${hoursList[i]}`
-            }
-
-
+            
+            const operatingHoursTag = operatingHours(details)
+            
             const closureTag = closure(details)
             detailsTag.append(detailImgTag)
 
