@@ -25,13 +25,6 @@ document.addEventListener("DOMContentLoaded", () => {
 })
 
 
-
-// create pop-up
-function popUpDetails() {
-    const popup = document.querySelector("details")
-    details.className.toggle("show")
-}
-
 // get park info
 function getParkInfo(parkCode) {
     return fetch(`${BASE_URL}/parks?parkCode=${parkCode}&api_key=${API_KEY}`)
@@ -84,7 +77,6 @@ function createDetailDiv(details, parkName) {
     } else {
         showFee.innerHTML = `$${fee}`
     }
-
 
     parkTag.append(showFee)
     return parkTag
@@ -166,13 +158,22 @@ function renderPark(park) {
         // create container for park info
         const parkContainer = document.createElement("div");
         parkContainer.setAttribute("class", "arrow")
-        parkContainer.style.top = Math.random() * 400
-        parkContainer.style.left = Math.random() * 400 + 300
+        const latitude = details["latitude"];
+        const longitude = details["longitude"];
+        const latPx = .00743; //this is the number of degrees latitude/pixel
+        const longPx = .009125; //this is the number of degrees longitude/pixel
+        const latDiff = 39.2 - latitude;
+        const longDiff = Math.abs(-83.3 - (longitude));
+        const latitudeInPx = latDiff/latPx;
+        const longitudeInPx = longDiff/longPx;
+        parkContainer.style.top = latitudeInPx;
+        parkContainer.style.left = longitudeInPx;
 
         //create arrow image
         const parkSign = document.createElement("img")
         parkSign.setAttribute("class", "arrowImg")
         parkSign.src = "Images\\pngwing.png"
+
 
 
         // add arrow image and the park card div to the container
