@@ -23,6 +23,21 @@ ul {
 }
 
 /* Class Selectors*/
+/* -------------------------------- */
+.description.show-more .more-text {
+    display: inline;
+
+}
+.more-text {
+    display: none;;
+}
+
+.read-more-btn {
+    background-color: #ECE8DD;
+    cursor: pointer;
+}
+/* --------------------------- */
+
 .more-info {
     background-color: #ECE8DD;
 }
