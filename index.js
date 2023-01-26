@@ -91,6 +91,26 @@ function createDetailDiv(details, parkName) {
 
 }
 
+// Closure:
+function closure(details) {
+    const closureTag = document.createElement("div")
+    closureTag.id = "closure-table"
+    closureTag.innerHTML = "CLOSURES EXCEPTIONS"
+
+    const closureUl  = document.createElement("ul")
+    closureTag.append(closureUl)
+
+    const exceptions = details["operatingHours"][0]["exceptions"]
+    for (let i=0; i < Object.keys(exceptions).length; i++) {
+        const closureli = document.createElement("li")
+        closureli.value = i
+        closureli.innerHTML = exceptions[i]["name"]
+        closureUl.append(closureli)
+    }
+
+    return closureTag
+}
+
 
 function renderPark(park) {
 
@@ -206,26 +226,13 @@ function renderPark(park) {
             }
 
 
-            // Closures:
-            const closureTag = document.createElement("div")
-            closureTag.id = "closure-table"
-            closureTag.innerHTML = "CLOSURES EXCEPTIONS"
-
-            const closureUl  = document.createElement("ul")
-            closureTag.append(closureUl)
-
-            const exceptions = details["operatingHours"][0]["exceptions"]
-            for (let i=0; i < Object.keys(exceptions).length; i++) {
-                const closureli = document.createElement("li")
-                closureli.value = i
-                closureli.innerHTML = exceptions[i]["name"]
-                closureUl.append(closureli)
-            }
-
+            const closureTag = closure(details)
             detailsTag.append(detailImgTag)
 
             contents.append(closeBtn, nameDiv, feeDiv, descriptionTag, operatingHoursTag, closureTag)
             detailsTag.append(contents)
+        
+            
 
         })
             
