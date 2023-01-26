@@ -1,13 +1,28 @@
 const BASE_URL = `https://developer.nps.gov/api/v1`
 const parkUrl = `${BASE_URL}/activities/parks?id=BFF8C027-7C8F-480B-A5F8-CD8CE490BFBA&api_key=${API_KEY}`
 
+
+    
+
+
 document.addEventListener("DOMContentLoaded", () => {
+    // let designations = []
+    // getParks()
+    // .then(parks => parks.forEach(park => {
+    //     const designation = park["designation"]
+    //     if (!designations.includes(designation)) {
+    //         designations.push(designation)
+    //     }}
+    // ))
+
+    
+
     getParks()
     .then(parks => getVAParks(parks))
     .then(vaParks => vaParks.forEach(park => renderPark(park)))
 
     // checkbox
-    const freeCheckBox = document.querySelector("#free")
+    const freeCheckBox = document.querySelector(".free")
     freeCheckBox.addEventListener('change', () => {
         const costs = document.getElementsByClassName("show-fee")
 
@@ -39,15 +54,39 @@ function getParks() {
 }
 
 
+// store park type and add select feature
+function parkType(designations) {
+    const select = document.querySelector(".park-type")
+    for (let each of designations) {
+        const type = each.toLowerCase().split(" ").join("-")
+        if (type) {
+            const option = document.createElement("option")
+            
+            option.setAttribute("class", type)
+            option.innerHTML = each
+            select.append(option)
+        }
+        
+    }
+}
+
 function getVAParks(parks) {
     let vaParks = []
-    
+    let designations = []
     parks.forEach(park => {
         if (park.states === "VA") {
             vaParks.push(park)
             renderPark(park)
+            const designation = park["designation"]
+            if (!designations.includes(designation)) {
+                designations.push(designation)
+            }
         }
+        
     })
+    
+    parkType(designations)
+
     return vaParks
 
 }
@@ -201,9 +240,7 @@ function renderPark(park) {
 
         const details = parkInfo["data"][0]
         const parkTag = createDetailDiv(details, park["name"])
-        // console.log(parkTag)
 
-        //////////////////////////////////////////////////////////////
         // show arrows
         const mapContainer = document.querySelector("#map-container");
 
@@ -236,7 +273,6 @@ function renderPark(park) {
         // add event listener to show/hide park card when hovering over the park sign
         parkContainer.addEventListener("mouseover", () => parkTag.style.display = "inline-block")
         parkContainer.addEventListener("mouseout", () => parkTag.style.display = "none")
-        /////////////////////////////////////////////////////////////////////
 
 
         // add event listener to parkTag
