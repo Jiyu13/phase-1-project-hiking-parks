@@ -1,13 +1,8 @@
 const BASE_URL = `https://developer.nps.gov/api/v1`
 const parkUrl = `${BASE_URL}/activities/parks?id=BFF8C027-7C8F-480B-A5F8-CD8CE490BFBA&api_key=${API_KEY}`
 
-
-    
-
-
 document.addEventListener("DOMContentLoaded", () => {
     
-
     getParks()
     .then(parks => getVAParks(parks))
     .then(vaParks => vaParks.forEach(park => renderPark(park)))
@@ -24,7 +19,6 @@ document.addEventListener("DOMContentLoaded", () => {
             } else if (!freeCheckBox.checked) {
                 arrowImg.style.display = ""
             }
-
         } 
     })
 })
@@ -48,33 +42,46 @@ function getParks() {
 function createparkType(designations) {
     const select = document.querySelector(".park-type")
     for (let each of designations) {
-        const type = each.toLowerCase().split(" ").join("-")
-        if (type) {
-            const option = document.createElement("option")
+        const option = document.createElement("option")
+        if (each) {
             
-            option.setAttribute("class", type)
             option.innerHTML = each
+            option.value = each
+            select.append(option)
+        } else {
+            option.innerHTML = "Uncategorized "
+            option.value = "Uncategorized"
             select.append(option)
         }
-        
     }
+
+    // filter park type based on selected designation
+    select.addEventListener("change", (event) => {
+        const currentOption = event.target.value
+        const parks = Array.from(document.querySelectorAll(".arrow"))  // get all elements with class "arrow" and turn in to array
+        const matchingParks = parks.filter(park => park.dataset.designation === currentOption)
+        const unmatchingParks = parks.filter(park => park.dataset.designation !== currentOption)
+
+        matchingParks.forEach(park => park.style.display = "")
+        unmatchingParks.forEach(park => park.style.display = "none")
+    })
 }
 
+let vaParks = []
+
 function getVAParks(parks) {
-    let vaParks = []
     let designations = []
     parks.forEach(park => {
         if (park.states === "VA") {
             vaParks.push(park)
-            renderPark(park)
             const designation = park["designation"]
             if (!designations.includes(designation)) {
                 designations.push(designation)
             }
         }
-        
     })
-    createparkType(designations)
+    createparkType(designations, vaParks)
+    
     return vaParks
 }
 
@@ -109,7 +116,6 @@ function createDetailDiv(details, parkName) {
     moreInfo.setAttribute("class", "more-info")
     moreInfo.innerHTML = "More Info"
 
-
     parkTag.append(showFee, moreInfo)
     return parkTag
 
@@ -120,7 +126,7 @@ function createDetailDiv(details, parkName) {
 function operatingHours(details) {
 
     const hourTable = document.createElement("div")
-    hourTable.setAttribute("class", "hour-table") // change id-class
+    hourTable.setAttribute("class", "hour-table")
     
 
     const openingHoursDiv = document.createElement("div")
@@ -158,8 +164,6 @@ function operatingHours(details) {
     for (let i=0; i < lis.length; i++) {
         lis[i].textContent = `${allDays[i]}: ${hoursList[i]}`
     }
-
-
 
     return hourTable
 }
@@ -221,22 +225,31 @@ function longitudeToPx(longitude) {
 function renderPark(park) {
 
     const parkCode = park["parkCode"]
-    
+
+    // show arrows
+    const mapContainer = document.querySelector("#map-container");
+
     getParkInfo(parkCode)
     .then(parkInfo => {
 
         const details = parkInfo["data"][0]
         const parkTag = createDetailDiv(details, park["name"])
 
-        // show arrows
-        const mapContainer = document.querySelector("#map-container");
+        
 
         // create container for park info
         const parkContainer = document.createElement("div");
         parkContainer.setAttribute("class", "arrow")
+        if (details["designation"]) {
+            parkContainer.dataset.designation = details["designation"]    // html--->data-designation=details["designation"]
+        } else {
+            parkContainer.dataset.designation = "Uncategorized"
+        }
+        
+
         const latitude = details["latitude"];
         const longitude = details["longitude"];
-        
+
   
         parkContainer.style.top = latitudeToPx(latitude)
         parkContainer.style.left = longitudeToPx(longitude)
@@ -246,7 +259,6 @@ function renderPark(park) {
         const parkSign = document.createElement("img")
         parkSign.setAttribute("class", "arrowImg")
         parkSign.src = "Images\\pngwing.png"
-
 
         // add arrow image and the park card div to the container
         parkContainer.appendChild(parkSign)
@@ -327,6 +339,6 @@ function renderPark(park) {
             contents.append(closeBtn, nameDiv, feeDiv, descriptionTag, hourTable, closureTable)
             detailsTag.append(contents)
         })
-            
-    })  
+        
+    })
 }
