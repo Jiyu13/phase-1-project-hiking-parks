@@ -6,15 +6,6 @@ const parkUrl = `${BASE_URL}/activities/parks?id=BFF8C027-7C8F-480B-A5F8-CD8CE49
 
 
 document.addEventListener("DOMContentLoaded", () => {
-    // let designations = []
-    // getParks()
-    // .then(parks => parks.forEach(park => {
-    //     const designation = park["designation"]
-    //     if (!designations.includes(designation)) {
-    //         designations.push(designation)
-    //     }}
-    // ))
-
     
 
     getParks()
@@ -34,9 +25,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 arrowImg.style.display = ""
             }
 
-        }
-    });
-
+        } 
+    })
 })
 
 
@@ -55,7 +45,7 @@ function getParks() {
 
 
 // store park type and add select feature
-function parkType(designations) {
+function createparkType(designations) {
     const select = document.querySelector(".park-type")
     for (let each of designations) {
         const type = each.toLowerCase().split(" ").join("-")
@@ -84,11 +74,8 @@ function getVAParks(parks) {
         }
         
     })
-    
-    parkType(designations)
-
+    createparkType(designations)
     return vaParks
-
 }
 
 
