@@ -96,7 +96,8 @@ ul {
 #details {
     max-width: 350px;
     vertical-align: top;
-    position: relative;
+    position: absolute;
+    background-color: #ECE8DD;
 }
 
 #detail-image {
