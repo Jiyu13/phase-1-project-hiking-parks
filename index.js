@@ -139,6 +139,25 @@ function closure(details) {
 }
 
 
+// set latitude
+function latitudeToPx(latitude) {
+    const latPx = .00743; //this is the number of degrees latitude/pixel
+    const latDiff = 39.2 - latitude;
+    const latitudeInPx = latDiff/latPx;
+    return latitudeInPx
+
+}
+
+ // set longtitude
+function longitudeToPx(longitude) {
+    const longPx = .009125; //this is the number of degrees longitude/pixel
+    const longDiff = Math.abs(-83.3 - (longitude));
+    const longitudeInPx = longDiff/longPx;
+    return longitudeInPx
+
+}
+
+
 function renderPark(park) {
 
     const parkCode = park["parkCode"]
@@ -155,19 +174,19 @@ function renderPark(park) {
         // show arrows
         const mapContainer = document.querySelector("#map-container");
        
+        
+
         // create container for park info
         const parkContainer = document.createElement("div");
         parkContainer.setAttribute("class", "arrow")
         const latitude = details["latitude"];
         const longitude = details["longitude"];
-        const latPx = .00743; //this is the number of degrees latitude/pixel
-        const longPx = .009125; //this is the number of degrees longitude/pixel
-        const latDiff = 39.2 - latitude;
-        const longDiff = Math.abs(-83.3 - (longitude));
-        const latitudeInPx = latDiff/latPx;
-        const longitudeInPx = longDiff/longPx;
-        parkContainer.style.top = latitudeInPx;
-        parkContainer.style.left = longitudeInPx;
+        
+        
+  
+        parkContainer.style.top = latitudeToPx(latitude)
+        parkContainer.style.left = longitudeToPx(longitude)
+  
 
         //create arrow image
         const parkSign = document.createElement("img")
