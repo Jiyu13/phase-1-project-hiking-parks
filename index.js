@@ -84,7 +84,6 @@ function createDetailDiv(details, parkName) {
     moreInfo.innerHTML = "More Info"
 
 
-
     parkTag.append(showFee, moreInfo)
     return parkTag
 
@@ -99,7 +98,6 @@ function operatingHours(details) {
 
     const openingUl  = document.createElement("ul")
     operatingHoursTag.append(openingUl)
-    console.log(details)
     const hours = details["operatingHours"][0]["standardHours"]
     const sunday = hours["sunday"]
     const monday = hours["monday"]
@@ -127,6 +125,7 @@ function operatingHours(details) {
 
 // Closure:
 function closure(details) {
+    console.log(details["parkCode"])
     const closureTag = document.createElement("div")
     closureTag.id = "closure-table"
     closureTag.innerHTML = "CLOSURES EXCEPTIONS"
@@ -135,13 +134,20 @@ function closure(details) {
     closureTag.append(closureUl)
 
     const exceptions = details["operatingHours"][0]["exceptions"]
-    for (let i=0; i < Object.keys(exceptions).length; i++) {
-        const closureli = document.createElement("li")
-        closureli.value = i
-        closureli.innerHTML = exceptions[i]["name"]
-        closureUl.append(closureli)
+    if (exceptions.length !== 0) {
+        for (let i=0; i < Object.keys(exceptions).length; i++) {
+            const closureli = document.createElement("li")
+            closureli.value = i
+            closureli.innerHTML = exceptions[i]["name"]
+            closureUl.append(closureli)
+        }
+    } else {
+        const moreInforLink = document.createElement("a")
+        moreInforLink.href = `https://www.nps.gov/${details["parkCode"]}/planyourvisit/hours.htm`
+        
+        moreInforLink.innerHTML = 'More info'
+        closureUl.append(moreInforLink)
     }
-
     return closureTag
 }
 
@@ -258,7 +264,6 @@ function renderPark(park) {
             descriptionTag.setAttribute("id", "description")
             descriptionTag.innerHTML = details["description"]
 
-            
             const operatingHoursTag = operatingHours(details)
             
             const closureTag = closure(details)
