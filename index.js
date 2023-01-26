@@ -78,7 +78,14 @@ function createDetailDiv(details, parkName) {
         showFee.innerHTML = `$${fee}`
     }
 
-    parkTag.append(showFee)
+    // more info link
+    const moreInfo = document.createElement("button")
+    moreInfo.setAttribute("class", "more-info")
+    moreInfo.innerHTML = "More Info"
+
+
+
+    parkTag.append(showFee, moreInfo)
     return parkTag
 
 }
@@ -259,9 +266,6 @@ function renderPark(park) {
 
             contents.append(closeBtn, nameDiv, feeDiv, descriptionTag, operatingHoursTag, closureTag)
             detailsTag.append(contents)
-        
-            
-
         })
             
     })  
