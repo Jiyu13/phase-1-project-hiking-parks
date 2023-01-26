@@ -60,10 +60,10 @@ function createDetailDiv(details, parkName) {
     const imageTag = document.createElement("img")
     imageTag.src = details["images"][0]["url"]
     imageTag.style.width = "180px"
-    imageTag.style.height = "180px"
+    imageTag.style.height = "150px"
 
 
-    const nameTag = document.createElement("h3")
+    const nameTag = document.createElement("h4")
     nameTag.innerHTML = parkName
 
 
