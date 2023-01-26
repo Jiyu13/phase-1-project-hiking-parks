@@ -125,7 +125,6 @@ function operatingHours(details) {
 
 // Closure:
 function closure(details) {
-    console.log(details["parkCode"])
     const closureTag = document.createElement("div")
     closureTag.id = "closure-table"
     closureTag.innerHTML = "CLOSURES EXCEPTIONS"
@@ -261,8 +260,26 @@ function renderPark(park) {
 
             // show description
             const descriptionTag = document.createElement("p")
-            descriptionTag.setAttribute("id", "description")
-            descriptionTag.innerHTML = details["description"]
+            descriptionTag.setAttribute("class", "description")
+            
+            // toggle description with btn
+            const readMoreBtn = document.createElement("button")
+            readMoreBtn.setAttribute("class", "read-more-btn")
+            readMoreBtn.innerHTML = "Read More"
+            readMoreBtn.addEventListener("click", () => {
+                descriptionTag.classList.toggle("show-more")  // add "show more" class to description tag when click btn
+                if (readMoreBtn.innerHTML === "Read More") {
+                    readMoreBtn.innerHTML = "Read Less"
+                } else {
+                    readMoreBtn.innerHTML = "Read More"
+                }
+            })
+
+            descriptionTag.innerHTML = `${details["description"].substring(0, 100)} 
+                                       <span class='more-text'>${details["description"].substring(100)}</span>
+                                       `
+            descriptionTag.append(readMoreBtn)
+
 
             const operatingHoursTag = operatingHours(details)
             
