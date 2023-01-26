@@ -22,11 +22,11 @@ ul {
     list-style-type: none;
 }
 
-h3 {
-    font-size: 1.1em;
+/* Class Selectors*/
+.more-info {
+    background-color: #ECE8DD;
 }
 
-/* Class Selectors*/
 .show-fee {
     font-size: 1em;
 }
