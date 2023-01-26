@@ -85,17 +85,6 @@ ul {
     justify-content: center;
 }
 
-.card {
-    width: 100px;
-    height: 30px;
-    background-color: white;
-    border: solid;
-    border-color: black;
-    border-width: 2px;
-    position: absolute;
-    opacity: 60%;
-}
-
 .arrow {
     height: auto;
     position: absolute;
