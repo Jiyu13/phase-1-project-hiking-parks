@@ -320,12 +320,12 @@ function createParkContainer(park) {
         if (park["designation"] === "State Park") {
             parkSign.src = "Images\\Map-Pin-Orange.png"
         } else if (park["designation"] === "Local Park") {
-            
             parkSign.src = "Images\\Map-Pin-Blue.png"
+        } else if (park["designation"] === "Trail") {
+            parkSign.src = "Images\\Map-Pin-Brown.png"
         } else {
             parkSign.src = "Images\\Map-Pin-Green.png"
         }
-        //////////////////////////////////
         
         
 
