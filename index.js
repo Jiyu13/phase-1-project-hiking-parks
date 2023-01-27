@@ -7,6 +7,20 @@ document.addEventListener("DOMContentLoaded", () => {
     .then(parks => getVAParks(parks))
     .then(vaParks => vaParks.forEach(park => renderPark(park)))
 
+    // add new park btn
+    const newParkForm = document.querySelector("#new-park")
+    newParkForm.style.display = "none"
+    const addParkBtn = document.querySelector("#add-park")
+    addParkBtn.addEventListener("click", () => {
+        console.log(designations)
+        newParkForm.style.display = ""
+        newParkForm.addEventListener("submit", (event) => {
+            event.preventDefault()
+            storeNewPark(event.target)               
+        })
+    })
+
+
     // checkbox
     const freeCheckBox = document.querySelector(".free")
     freeCheckBox.addEventListener('change', () => {
@@ -21,7 +35,70 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         } 
     })
+    newCard()
 })
+
+
+// create new card
+function newCard() {
+    const mapContainer = document.querySelector("#map-container")
+    console.log(mapContainer)
+
+    const arrow = document.createElement("div")
+    arrow.setAttribute("class", "arrow")
+    arrow.dataset.designation = retriveData["Category"]
+    
+    const arrowImg = document.createElement("img")
+    arrowImg.setAttribute("class", "arrowImg")
+    arrowImg.src= "Images\\pngwing.png"
+
+    const park = document.createElement("div")
+    park.setAttribute("class", "park")
+    park.style.display = "none"
+
+    const parkImg = document.createElement("img")
+    parkImg.setAttribute("class", "park-image")
+    parkImg.src = retriveData["Park Image"]
+    parkImg.style.width = "180px"
+    parkImg.style.height = "150px"
+
+    const title = document.createElement("h4")
+    title.innerHTML = retriveData["Park Name"]
+
+
+    const moreInfo = document.createElement("a")
+    moreInfo.innerHTML = "More Info"
+    moreInfo.href = retriveData["Park URL"]
+     
+    park.append(parkImg, title, moreInfo)
+    arrow.append(arrowImg, park)
+    mapContainer.append(arrow)
+
+    arrow.style.top = latitudeToPx(retriveData["latitude"])
+    arrow.style.left = longitudeToPx(retriveData["longitude"])
+    console.log(arrow.style.top)
+    console.log(arrow.style.left)
+
+    arrow.addEventListener("mouseover", () => park.style.display = "inline-block")
+    arrow.addEventListener("mouseout", () => park.style.display = "none")
+
+    
+}
+
+const retriveData = JSON.parse(localStorage.getItem("park"))
+const category = retriveData["Category"]
+
+// post new park/trail using localStorage
+function storeNewPark(newPark) {
+    const formData = new FormData(newPark)
+    const obj = Object.fromEntries(formData)
+
+    const json = JSON.stringify(obj)
+    localStorage.setItem("park", json)
+
+    // window.localStorage.clear()
+
+}
 
 
 // get park info
@@ -71,9 +148,9 @@ function createparkType(designations) {
 }
 
 let vaParks = []
+let designations = []
 
 function getVAParks(parks) {
-    let designations = []
     parks.forEach(park => {
         if (park.states === "VA") {
             vaParks.push(park)
@@ -81,8 +158,19 @@ function getVAParks(parks) {
             if (!designations.includes(designation)) {
                 designations.push(designation)
             }
+            
         }
     })
+    if (category === "park-type") {
+        if (!designations.includes("")) {
+            designations.push("category")
+        }
+
+    } else {
+        if (!designations.includes(category)) {
+            designations.push(category)
+        }
+    }
     createparkType(designations, vaParks)
     
     return vaParks
@@ -94,6 +182,7 @@ function createDetailDiv(details, parkName) {
     parkTag.setAttribute("class", "park")
 
     const imageTag = document.createElement("img")
+    imageTag.setAttribute("class", "park-image")
     imageTag.src = details["images"][0]["url"]
     imageTag.style.width = "180px"
     imageTag.style.height = "150px"
@@ -208,6 +297,7 @@ function closure(details) {
 
 // set latitude
 function latitudeToPx(latitude) {
+    console.log(latitude)
     const latPx = .00743; //this is the number of degrees latitude/pixel
     const latDiff = 39.2 - latitude;
     const latitudeInPx = latDiff/latPx;

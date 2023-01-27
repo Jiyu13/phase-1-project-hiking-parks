@@ -22,6 +22,13 @@ ul {
     list-style-type: none;
 }
 
+form {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
 /* Class Selectors*/
 .closure-list {
     display: none; 
@@ -103,6 +110,10 @@ ul {
     width: 20px;
 }
 
+.park-image {
+    width: 180px;
+    width: 150px;
+}
 
 .park {
     vertical-align: top;
@@ -120,6 +131,14 @@ ul {
 }
 
 /* ID Selectors */
+#add-park {
+    width: 150px;
+    height: 50px;
+}
+
+/* #new-park {
+    display: none;
+} */
 
 #map-container {
     position: relative;
