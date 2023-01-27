@@ -12,6 +12,7 @@ body {
     font-size: 30px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 
+
 }
 
 a {
@@ -92,6 +93,7 @@ ul {
 
 .arrowImg{
     width: 50px;
+    opacity: 80%;
 
 }
 
@@ -123,11 +125,11 @@ ul {
 
 #map-container {
     position: relative;
-    height: 410px;
+    height: 711;
 }
 #map {
-    width: 900px;
-    height: 400px;
+    width: 1600px;
+    height: 711px;
 }
 
 
