@@ -81,7 +81,7 @@ function storeNewPark(newPark) {
 }
 
 
-localStorage.setItem("parkss", null) // clear newParks item
+// localStorage.setItem("parks", null) // clear newParks item
 
 
 // get park info
