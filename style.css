@@ -107,14 +107,6 @@ ul {
 }
 
 
-.map-x-pin {
-    background-color: black; /* So we can see where the pixel is */
-    height: 20px;
-    position: absolute;
-    width: 20px;
-}
-
-
 .park {
     vertical-align: top;
     width: 180px;
@@ -175,7 +167,7 @@ ul {
     border-radius: 4px;
     opacity: 95%;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
 }
 
