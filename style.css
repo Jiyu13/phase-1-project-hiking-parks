@@ -177,6 +177,33 @@ form {
 
 }
 
+#add-park{
+    position: absolute;
+    right: 80px;
+    top: 66px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 16px;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.19);
+
+}
+
+#new-park{
+    position: absolute;
+    right: 300px;
+    top: 66px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 16px;
+    border-style: solid;
+    border-width: 2px;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.19);
+    background-color: #f5eed2;
+    padding: 10px;
+    z-index: 100;
+    opacity: 85%
+
+}
 
 #wrap {
     vertical-align: top;
