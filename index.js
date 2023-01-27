@@ -5,7 +5,23 @@ document.addEventListener("DOMContentLoaded", () => {
     
     getParks()
     .then(parks => getVAParks(parks))
-    .then(vaParks => vaParks.forEach(park => renderPark(park)))
+    .then(vaParks => vaParks.forEach(jsonPark => renderPark(jsonPark)))
+
+    // add new park btn
+    const newParkForm = document.querySelector("#new-park")
+    newParkForm.style.display = "none"
+
+    const addParkBtn = document.querySelector("#add-park")
+    addParkBtn.addEventListener("click", () => {
+        newParkForm.style.display = ""
+        newParkForm.addEventListener("submit", (event) => {
+            event.preventDefault()
+            storeNewPark(event.target)
+        })
+        newParkForm.reset()
+
+    })
+
 
     // checkbox
     const freeCheckBox = document.querySelector(".free")
@@ -21,7 +37,51 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         } 
     })
+    newParks = JSON.parse(localStorage.getItem("parks"))
+
+    if(newParks === null) {
+        newParks = []
+    }
+    newParks.forEach(park => newCard(park))
 })
+
+
+// create new card
+function newCard(parkData) {
+    const parkObj = {
+        code: null,
+        name: parkData["Park Name"],
+        description: "You added this park!",
+        designation: parkData["Category"],
+        latitude: parkData["latitude"],
+        longitude: parkData["longtitude"],
+        image1Url: parkData["Park Image"],
+        image2Url: parkData["Park Image"],
+        entranceFees: "???",
+        operatingHours: null,
+        operatingHourExceptions: null
+    }
+    createParkContainer(parkObj)
+}
+
+let newParks = []
+
+
+// post new park/trail using localStorage
+function storeNewPark(newPark) {
+    const formData = new FormData(newPark)
+    const obj = Object.fromEntries(formData)
+
+    newParks.push(obj)
+
+    const json = JSON.stringify(newParks)
+    localStorage.setItem("parks", json)
+    newCard(obj)
+
+}
+
+
+// localStorage.setItem("parks", null) // clear newParks item
 
 
 // get park info
@@ -29,6 +89,7 @@ function getParkInfo(parkCode) {
     return fetch(`${BASE_URL}/parks?parkCode=${parkCode}&api_key=${API_KEY}`)
     .then(response => response.json())
 }
+
 
 
 function getParks() {
@@ -71,9 +132,9 @@ function createparkType(designations) {
 }
 
 let vaParks = []
+let designations = []
 
 function getVAParks(parks) {
-    let designations = []
     parks.forEach(park => {
         if (park.states === "VA") {
             vaParks.push(park)
@@ -81,6 +142,7 @@ function getVAParks(parks) {
             if (!designations.includes(designation)) {
                 designations.push(designation)
             }
+
         }
     })
     createparkType(designations, vaParks)
@@ -89,25 +151,25 @@ function getVAParks(parks) {
 }
 
 
-function createDetailDiv(details, parkName) {
+function createDetailDiv(park) {
     const parkTag = document.createElement("div")
     parkTag.setAttribute("class", "park")
 
     const imageTag = document.createElement("img")
-    imageTag.src = details["images"][0]["url"]
+    imageTag.setAttribute("class", "park-image")
+    imageTag.src = park.image1Url
     imageTag.style.width = "180px"
     imageTag.style.height = "150px"
 
-
     const nameTag = document.createElement("h4")
-    nameTag.innerHTML = parkName
+    nameTag.innerHTML = park.name
 
 
     parkTag.append(imageTag, nameTag)
 
     const showFee = document.createElement("p")
     showFee.setAttribute("class", "show-fee")
-    const fee = details["entranceFees"][0]["cost"]
+    const fee = park.entranceFees
     if (fee === "0.00") {
         showFee.innerHTML = `$${fee}`
     } else {
@@ -126,7 +188,7 @@ function createDetailDiv(details, parkName) {
 
 
 // show operating hours
-function operatingHours(details) {
+function operatingHours(park) {
 
     const hourTable = document.createElement("div")
     hourTable.setAttribute("class", "hour-table")
@@ -146,7 +208,7 @@ function operatingHours(details) {
     const openingUl  = document.createElement("ul")
     openingUl.setAttribute("class", "hour-list")
     hourTable.append(openingUl)
-    const hours = details["operatingHours"][0]["standardHours"]
+    const hours = park.operatingHours
     const sunday = hours["sunday"]
     const monday = hours["monday"]
     const tuesday = hours["tuesday"]
@@ -173,7 +235,7 @@ function operatingHours(details) {
 
 
 // Closure:
-function closure(details) {
+function closure(park) {
     const closureTable = document.createElement("div")
     closureTable.className = "closure-table"
     closureTable.innerHTML = "CLOSURES EXCEPTIONS"
@@ -187,7 +249,7 @@ function closure(details) {
     closureUl.className = "closure-list"
     closureTable.append(closureUl)
 
-    const exceptions = details["operatingHours"][0]["exceptions"]
+    const exceptions = park.operatingHourExceptions
     if (exceptions.length !== 0) {
         for (let i=0; i < Object.keys(exceptions).length; i++) {
             const closureli = document.createElement("li")
@@ -197,7 +259,7 @@ function closure(details) {
         }
     } else {
         const moreInforLink = document.createElement("a")
-        moreInforLink.href = `https://www.nps.gov/${details["parkCode"]}/planyourvisit/hours.htm`
+        moreInforLink.href = `https://www.nps.gov/${park.code}/planyourvisit/hours.htm`
         
         moreInforLink.innerHTML = 'More info'
         closureUl.append(moreInforLink)
@@ -224,124 +286,135 @@ function longitudeToPx(longitude) {
 
 }
 
-
-function renderPark(park) {
-
-    const parkCode = park["parkCode"]
-
+function createParkContainer(park) {
     // show arrows
     const mapContainer = document.querySelector("#map-container");
 
-    getParkInfo(parkCode)
-    .then(parkInfo => {
+    const parkTag = createDetailDiv(park)
 
-        const details = parkInfo["data"][0]
-        const parkTag = createDetailDiv(details, park["name"])
+    // create container for park info
+    const parkContainer = document.createElement("div");
+    parkContainer.setAttribute("class", "arrow")
+    if (park.designation) {
+        parkContainer.dataset.designation = park.designation    // html--->data-designation=details["designation"]
+    } else {
+        parkContainer.dataset.designation = "Uncategorized"
+    }
 
-        
 
-        // create container for park info
-        const parkContainer = document.createElement("div");
-        parkContainer.setAttribute("class", "arrow")
-        if (details["designation"]) {
-            parkContainer.dataset.designation = details["designation"]    // html--->data-designation=details["designation"]
-        } else {
-            parkContainer.dataset.designation = "Uncategorized"
-        }
-        
+    const latitude = park.latitude;
+    const longitude = park.longitude;
 
-        const latitude = details["latitude"];
-        const longitude = details["longitude"];
 
-  
-        parkContainer.style.top = latitudeToPx(latitude)
-        parkContainer.style.left = longitudeToPx(longitude)
-  
+    parkContainer.style.top = latitudeToPx(latitude)
+    parkContainer.style.left = longitudeToPx(longitude)
+
 
         //create arrow image
         const parkSign = document.createElement("img")
         parkSign.setAttribute("class", "arrowImg")
         parkSign.src = "Images\\Map-Pin-Green.png"
 
-        // add arrow image and the park card div to the container
-        parkContainer.appendChild(parkSign)
-        parkContainer.appendChild(parkTag)
-        mapContainer.appendChild(parkContainer)
+    // add arrow image and the park card div to the container
+    parkContainer.appendChild(parkSign)
+    parkContainer.appendChild(parkTag)
+    mapContainer.appendChild(parkContainer)
 
-        // hide park tag by default
-        parkTag.style.display = "none"
-
-
-        // add event listener to show/hide park card when hovering over the park sign
-        parkContainer.addEventListener("mouseover", () => parkTag.style.display = "inline-block")
-        parkContainer.addEventListener("mouseout", () => parkTag.style.display = "none")
+    // hide park tag by default
+    parkTag.style.display = "none"
 
 
-        // add event listener to parkTag
-        parkTag.addEventListener("click", () => {
-            const detailsTag = document.querySelector("#details")
-
-            // create contents div for detail text content
-            const contents = document.createElement("div")
-            contents.setAttribute("class", "contents")
-            
-            detailsTag.style.display = "block"
-
-            // add close pop-up btn
-            const closeBtn = document.createElement("button")
-            closeBtn.setAttribute("id", "x")
-            closeBtn.innerHTML = "X"
-            closeBtn.addEventListener("click", () => {
-                detailsTag.innerHTML = ""
-                detailsTag.style.display = "none"
-            })
-            
-
-            // show image
-            const detailImgTag = document.createElement("img")
-            detailImgTag.setAttribute("id", "detail-image")
-            detailImgTag.src = details["images"][1]["url"]
-            
-            // show park name
-            const nameDiv = document.createElement("div")
-            nameDiv.setAttribute("id", "park-name")
-            nameDiv.innerHTML = park["name"]
-
-            // show fee
-            const feeDiv = document.createElement("div")
-            const fee = details["entranceFees"][0]["cost"]
-            feeDiv.innerHTML = `Entrance Fees: $${fee}`
+    // add event listener to show/hide park card when hovering over the park sign
+    parkContainer.addEventListener("mouseover", () => parkTag.style.display = "inline-block")
+    parkContainer.addEventListener("mouseout", () => parkTag.style.display = "none")
 
 
-            // show description
-            const descriptionTag = document.createElement("p")
-            descriptionTag.setAttribute("class", "description")
-            
-            // toggle description with btn
-            const readMoreBtn = document.createElement("button")
-            readMoreBtn.setAttribute("class", "read-more-btn")
-            readMoreBtn.innerHTML = "Read More"
-            readMoreBtn.addEventListener("click", () => {
-                descriptionTag.classList.toggle("show-more")  // add "show more" class to description tag when click btn
-                if (readMoreBtn.innerHTML === "Read More") {
-                    readMoreBtn.innerHTML = "Read Less"
-                } else {
-                    readMoreBtn.innerHTML = "Read More"
-                }
-            })
-            descriptionTag.innerHTML = `${details["description"].substring(0, 100)} 
-                                       <span class='more-text'>${details["description"].substring(100)}</span>
-                                       `
-            descriptionTag.append(readMoreBtn)
-            
-            const hourTable = operatingHours(details)
-            
-            const closureTable = closure(details)
-            detailsTag.append(detailImgTag)
+    // add event listener to parkTag
+    parkTag.addEventListener("click", () => {
+        const detailsTag = document.querySelector("#details")
 
-            contents.append(closeBtn, nameDiv, feeDiv, descriptionTag, hourTable, closureTable)
-            detailsTag.append(contents)
+        // create contents div for detail text content
+        const contents = document.createElement("div")
+        contents.setAttribute("class", "contents")
+
+        detailsTag.style.display = "block"
+
+        // add close pop-up btn
+        const closeBtn = document.createElement("button")
+        closeBtn.setAttribute("id", "x")
+        closeBtn.innerHTML = "X"
+        closeBtn.addEventListener("click", () => {
+            detailsTag.innerHTML = ""
+            detailsTag.style.display = "none"
         })
-        
+
+
+        // show image
+        const detailImgTag = document.createElement("img")
+        detailImgTag.setAttribute("id", "detail-image")
+        detailImgTag.src = park.image2Url
+
+        // show park name
+        const nameDiv = document.createElement("div")
+        nameDiv.setAttribute("id", "park-name")
+        nameDiv.innerHTML = park["name"]
+
+        // show fee
+        const feeDiv = document.createElement("div")
+        const fee = park.entranceFees
+        feeDiv.innerHTML = `Entrance Fees: $${fee}`
+
+
+        // show description
+        const descriptionTag = document.createElement("p")
+        descriptionTag.setAttribute("class", "description")
+
+        // toggle description with btn
+        const readMoreBtn = document.createElement("button")
+        readMoreBtn.setAttribute("class", "read-more-btn")
+        readMoreBtn.innerHTML = "Read More"
+        readMoreBtn.addEventListener("click", () => {
+            descriptionTag.classList.toggle("show-more")  // add "show more" class to description tag when click btn
+            if (readMoreBtn.innerHTML === "Read More") {
+                readMoreBtn.innerHTML = "Read Less"
+            } else {
+                readMoreBtn.innerHTML = "Read More"
+            }
+        })
+        descriptionTag.innerHTML = `${park.description.substring(0, 100)} 
+                                   <span class='more-text'>${park.description.substring(100)}</span>
+                                   `
+        descriptionTag.append(readMoreBtn)
+
+        const hourTable = (park.operatingHours != null) ? operatingHours(park) : null
+
+        const closureTable = (park.operatingHourExceptions != null) ? closure(park) : null
+        detailsTag.append(detailImgTag)
+
+        contents.append(closeBtn, nameDiv, feeDiv, descriptionTag, hourTable, closureTable)
+        detailsTag.append(contents)
+    })
+}
+
+function renderPark(park) {
+    const parkCode = park["parkCode"]
+
+    getParkInfo(parkCode)
+    .then(parkInfo => {
+        const details = parkInfo["data"][0]
+        const parkObj = {
+            code: parkCode,
+            name: details["name"],
+            description: details["description"],
+            designation: details["designation"],
+            latitude: details["latitude"],
+            longitude: details["longitude"],
+            image1Url: details["images"][0]["url"],
+            image2Url: details["images"][1]["url"],
+            entranceFees: details["entranceFees"][0]["cost"],
+            operatingHours: details["operatingHours"][0]["standardHours"],
+            operatingHourExceptions: details["operatingHours"][0]["exceptions"]
+        }
+        createParkContainer(parkObj);
     })
 }
