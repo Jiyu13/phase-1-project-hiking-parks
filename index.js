@@ -61,9 +61,12 @@ function createparkType(designations) {
         const parks = Array.from(document.querySelectorAll(".arrow"))  // get all elements with class "arrow" and turn in to array
         const matchingParks = parks.filter(park => park.dataset.designation === currentOption)
         const unmatchingParks = parks.filter(park => park.dataset.designation !== currentOption)
-
         matchingParks.forEach(park => park.style.display = "")
         unmatchingParks.forEach(park => park.style.display = "none")
+        if (currentOption === "Park Type") {
+            parks.forEach(park => park.style.display = "")
+        }
+        
     })
 }
 
