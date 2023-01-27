@@ -220,6 +220,7 @@ form {
     max-width: 350px;
     vertical-align: top;
     position: absolute;
+    
     background-color: #ECE8DD;
     border-style: solid;
     border-color: #052109;
@@ -236,6 +237,15 @@ form {
 }
 
 #x {
+    position: absolute;
+    background: red;
+    color: white;
+    top: -10px;
+    right: -10px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+#x2 {
     position: absolute;
     background: red;
     color: white;

@@ -21,7 +21,18 @@ document.addEventListener("DOMContentLoaded", () => {
             newParkForm.reset()
         })
     })
-    
+
+    const newParkForn = document.querySelector("#new-park");
+    addParkBtn.addEventListener("click", () => {
+        const closeBtn2 = document.createElement("button")
+        newParkForm.append(closeBtn2);
+            closeBtn2.setAttribute("id", "x2")
+            closeBtn2.innerHTML = "X"
+            closeBtn2.addEventListener("click", () => {
+                detailsTag.innerHTML = "" //not sure what these should be so that the x closes the form window
+                detailsTag.style.display = "none" //not sure what these should be so that the x closes the form window
+        })
+    })    
 
     // checkbox
     const freeCheckBox = document.querySelector(".free")
