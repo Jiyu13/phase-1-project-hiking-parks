@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
             newParkForm.reset()
         })
     })
-
+    
     const newParkForn = document.querySelector("#new-park");
     addParkBtn.addEventListener("click", () => {
         const closeBtn2 = document.createElement("button")
@@ -322,22 +322,21 @@ function createParkContainer(park) {
     parkContainer.style.left = longitudeToPx(longitude)
 
 
-        //create arrow image
-        const parkSign = document.createElement("img")
-        parkSign.setAttribute("class", "arrowImg")
-        
-        console.log(park["designation"])
-        //change pin color by park type
-        if (park["designation"] === "State Park") {
-            parkSign.src = "Images\\Map-Pin-Orange.png"
-        } else if (park["designation"] === "Local Park") {
-            parkSign.src = "Images\\Map-Pin-Blue.png"
-        } else if (park["designation"] === "Trail") {
-            parkSign.src = "Images\\Map-Pin-Brown.png"
-        } else {
-            parkSign.src = "Images\\Map-Pin-Green.png"
-        }
-        
+    //create arrow image
+    const parkSign = document.createElement("img")
+    parkSign.setAttribute("class", "arrowImg")
+    
+    //change pin color by park type
+    if (park["designation"] === "State Park") {
+        parkSign.src = "Images\\Map-Pin-Orange.png"
+    } else if (park["designation"] === "Local Park") {
+        parkSign.src = "Images\\Map-Pin-Blue.png"
+    } else if (park["designation"] === "Trail") {
+        parkSign.src = "Images\\Map-Pin-Brown.png"
+    } else {
+        parkSign.src = "Images\\Map-Pin-Green.png"
+    }
+    
         
 
     // add arrow image and the park card div to the container
@@ -383,6 +382,7 @@ function createParkContainer(park) {
         const nameDiv = document.createElement("div")
         nameDiv.setAttribute("id", "park-name")
         nameDiv.innerHTML = park["name"]
+
 
         // show fee
         const feeDiv = document.createElement("div")
@@ -430,6 +430,7 @@ function renderPark(park) {
         const parkObj = {
             code: parkCode,
             name: details["name"],
+            url: details["url"],
             description: details["description"],
             designation: details["designation"],
             latitude: details["latitude"],
@@ -441,5 +442,6 @@ function renderPark(park) {
             operatingHourExceptions: details["operatingHours"][0]["exceptions"]
         }
         createParkContainer(parkObj);
+        console.log(details["url"])
     })
 }
