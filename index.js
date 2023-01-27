@@ -30,6 +30,9 @@ function getParkInfo(parkCode) {
     .then(response => response.json())
 }
 
+//test of new branch
+//test of new branch 2
+
 
 function getParks() {
     return fetch(parkUrl)
