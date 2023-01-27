@@ -29,8 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
             closeBtn2.setAttribute("id", "x2")
             closeBtn2.innerHTML = "X"
             closeBtn2.addEventListener("click", () => {
-                detailsTag.innerHTML = "" //not sure what these should be so that the x closes the form window
-                detailsTag.style.display = "none" //not sure what these should be so that the x closes the form window
+                newParkForm.style.display = "none"
         })
     })    
 
