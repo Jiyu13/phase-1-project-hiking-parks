@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
         newParkForm.style.display = ""
         newParkForm.addEventListener("submit", (event) => {
             event.preventDefault()
-            storeNewPark(event.target)               
+            storeNewPark(event.target)
         })
         newParkForm.reset()
 
@@ -142,7 +142,7 @@ function getVAParks(parks) {
             if (!designations.includes(designation)) {
                 designations.push(designation)
             }
-            
+
         }
     })
     createparkType(designations, vaParks)
@@ -196,7 +196,7 @@ function operatingHours(park) {
 
     const openingHoursDiv = document.createElement("div")
     openingHoursDiv.setAttribute("class", "opening-hours")
-    openingHoursDiv.innerHTML = "Operating Hours"
+    openingHoursDiv.innerHTML = "Operating Hours";
     
     // toggle hour table
     hourTable.addEventListener("click", () => {
@@ -270,7 +270,7 @@ function closure(park) {
 
 // set latitude
 function latitudeToPx(latitude) {
-    const latPx = .00743; //this is the number of degrees latitude/pixel
+    const latPx = .0038; //this is the number of degrees latitude/pixel
     const latDiff = 39.2 - latitude;
     const latitudeInPx = latDiff/latPx;
     return latitudeInPx
@@ -279,7 +279,7 @@ function latitudeToPx(latitude) {
 
  // set longtitude
 function longitudeToPx(longitude) {
-    const longPx = .009125; //this is the number of degrees longitude/pixel
+    const longPx = .00517; //this is the number of degrees longitude/pixel
     const longDiff = Math.abs(-83.3 - (longitude));
     const longitudeInPx = longDiff/longPx;
     return longitudeInPx
@@ -300,7 +300,7 @@ function createParkContainer(park) {
     } else {
         parkContainer.dataset.designation = "Uncategorized"
     }
-    
+
 
     const latitude = park.latitude;
     const longitude = park.longitude;
@@ -310,10 +310,10 @@ function createParkContainer(park) {
     parkContainer.style.left = longitudeToPx(longitude)
 
 
-    //create arrow image
-    const parkSign = document.createElement("img")
-    parkSign.setAttribute("class", "arrowImg")
-    parkSign.src = "Images\\pngwing.png"
+        //create arrow image
+        const parkSign = document.createElement("img")
+        parkSign.setAttribute("class", "arrowImg")
+        parkSign.src = "Images\\Map-Pin-Green.png"
 
     // add arrow image and the park card div to the container
     parkContainer.appendChild(parkSign)
@@ -336,7 +336,7 @@ function createParkContainer(park) {
         // create contents div for detail text content
         const contents = document.createElement("div")
         contents.setAttribute("class", "contents")
-        
+
         detailsTag.style.display = "block"
 
         // add close pop-up btn
@@ -347,13 +347,13 @@ function createParkContainer(park) {
             detailsTag.innerHTML = ""
             detailsTag.style.display = "none"
         })
-        
+
 
         // show image
         const detailImgTag = document.createElement("img")
         detailImgTag.setAttribute("id", "detail-image")
         detailImgTag.src = park.image2Url
-        
+
         // show park name
         const nameDiv = document.createElement("div")
         nameDiv.setAttribute("id", "park-name")
@@ -368,7 +368,7 @@ function createParkContainer(park) {
         // show description
         const descriptionTag = document.createElement("p")
         descriptionTag.setAttribute("class", "description")
-        
+
         // toggle description with btn
         const readMoreBtn = document.createElement("button")
         readMoreBtn.setAttribute("class", "read-more-btn")
@@ -385,9 +385,9 @@ function createParkContainer(park) {
                                    <span class='more-text'>${park.description.substring(100)}</span>
                                    `
         descriptionTag.append(readMoreBtn)
-        
+
         const hourTable = (park.operatingHours != null) ? operatingHours(park) : null
-        
+
         const closureTable = (park.operatingHourExceptions != null) ? closure(park) : null
         detailsTag.append(detailImgTag)
 

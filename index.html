@@ -15,15 +15,23 @@
 
        
         <div class = "header">
-            <h1>Let's Hike | Explore Virginia's National Parks</h1>
+            <h1>Let's Hike | Explore Virginia's Parks</h1>
         </div>
     
         <div class="container">
             <div>
+
+            </div>
+            <div id="map-container">
+                <img id ="map" src="Images\Virginia-Map-Updated.png" alt="map"/>
+                <img id ="legend" src="Images\MapKey.png" alt="legend"/>
+
+                <p id="categoryTitle">Select Park Category</p>
+
                 <div class="filter">
                     
                     <select class="park-type">
-                        <option value="Park Type">Park Type</option>
+                        <option value="Park Type">Select Park Category</option>
                         <option value="National Park">National Park</option>
                         <option value="State Park">State Park</option>
                         <option value="Local Park">Local Park</option>
@@ -36,10 +44,6 @@
                 </div>
 
             </div>
-            <div id="map-container">
-                <img id ="map" src="Images\Virginia-Map-noBG.png" alt="map"/>
-
-            </div>
             <div id="details"></div>
 
             <form id="new-park">
@@ -49,22 +53,22 @@
                     <input type="text" name="Park Name" id="name" />
 
                 </div>
-                
+
                 <div>
                     <label for="park-image">Park Image: </label>
-                    <input type="text" name="Park Image" id="park-image" /> 
+                    <input type="text" name="Park Image" id="park-image" />
                 </div>
-                
+
                 <div>
                     <label for="park-lat">Park Lat: </label>
-                    <input type="text" name="latitude" id="latitude" /> 
+                    <input type="text" name="latitude" id="latitude" />
                 </div>
-                
+
                 <div>
                     <label for="park-long">Park Long: </label>
                     <input type="text" name="longtitude" id="longtitude" />
                 </div>
-                
+
                 <div>
                     <select name="Category" id="category">
                         <option value="National Park">National Park</option>
