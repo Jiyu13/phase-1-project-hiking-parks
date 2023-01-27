@@ -134,7 +134,7 @@ function operatingHours(details) {
 
     const openingHoursDiv = document.createElement("div")
     openingHoursDiv.setAttribute("class", "opening-hours")
-    openingHoursDiv.innerHTML = "Operating Hours"
+    openingHoursDiv.innerHTML = "Operating Hours";
     
     // toggle hour table
     hourTable.addEventListener("click", () => {
@@ -208,7 +208,7 @@ function closure(details) {
 
 // set latitude
 function latitudeToPx(latitude) {
-    const latPx = .00743; //this is the number of degrees latitude/pixel
+    const latPx = .0038; //this is the number of degrees latitude/pixel
     const latDiff = 39.2 - latitude;
     const latitudeInPx = latDiff/latPx;
     return latitudeInPx
@@ -217,7 +217,7 @@ function latitudeToPx(latitude) {
 
  // set longtitude
 function longitudeToPx(longitude) {
-    const longPx = .009125; //this is the number of degrees longitude/pixel
+    const longPx = .00517; //this is the number of degrees longitude/pixel
     const longDiff = Math.abs(-83.3 - (longitude));
     const longitudeInPx = longDiff/longPx;
     return longitudeInPx
@@ -261,7 +261,7 @@ function renderPark(park) {
         //create arrow image
         const parkSign = document.createElement("img")
         parkSign.setAttribute("class", "arrowImg")
-        parkSign.src = "Images\\pngwing.png"
+        parkSign.src = "Images\\Map-Pin-Green.png"
 
         // add arrow image and the park card div to the container
         parkContainer.appendChild(parkSign)
