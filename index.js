@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
         newParkForm.reset()
 
     })
+    
 
 
     // checkbox
@@ -157,6 +158,8 @@ function createDetailDiv(park) {
 
     const imageTag = document.createElement("img")
     imageTag.setAttribute("class", "park-image")
+    
+
     imageTag.src = park.image1Url
     imageTag.style.width = "180px"
     imageTag.style.height = "150px"
@@ -313,7 +316,20 @@ function createParkContainer(park) {
         //create arrow image
         const parkSign = document.createElement("img")
         parkSign.setAttribute("class", "arrowImg")
-        parkSign.src = "Images\\Map-Pin-Green.png"
+        
+        console.log(park["designation"])
+        //change pin color by park type
+        if (park["designation"] === "State Park") {
+            parkSign.src = "Images\\Map-Pin-Orange.png"
+        } else if (park["designation"] === "Local Park") {
+            
+            parkSign.src = "Images\\Map-Pin-Blue.png"
+        } else {
+            parkSign.src = "Images\\Map-Pin-Green.png"
+        }
+        //////////////////////////////////
+        
+        
 
     // add arrow image and the park card div to the container
     parkContainer.appendChild(parkSign)
