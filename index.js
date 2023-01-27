@@ -99,7 +99,7 @@ function operatingHours(details) {
 
     const openingHoursDiv = document.createElement("div")
     openingHoursDiv.setAttribute("class", "opening-hours")
-    openingHoursDiv.innerHTML = "Operating Hours"
+    openingHoursDiv.innerHTML = "Operating Hours";
     
     // toggle hour table
     hourTable.addEventListener("click", () => {
