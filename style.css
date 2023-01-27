@@ -110,10 +110,6 @@ form {
     width: 20px;
 }
 
-.park-image {
-    width: 180px;
-    width: 150px;
-}
 
 .park {
     vertical-align: top;
@@ -136,9 +132,6 @@ form {
     height: 50px;
 }
 
-/* #new-park {
-    display: none;
-} */
 
 #map-container {
     position: relative;
