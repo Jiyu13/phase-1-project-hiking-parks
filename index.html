@@ -24,7 +24,7 @@
             </div>
             <div id="map-container">
                 <img id ="map" src="Images\Virginia-Map-Updated.png" alt="map"/>
-                <img id ="legend" src="Images\MapKey.png" alt="legend"/>
+                <img id ="legend" src="Images\MapKeyWithHiking.png" alt="legend"/>
 
                 <p id="categoryTitle">Select Park Category</p>
 
@@ -43,10 +43,56 @@
 
                 </div>
 
+
+                <form id="new-park">
+                    <h4>Add New Parks/Trails</h4>
+                    <div>
+                        <label for="name">Park Name: </label>
+                        <input type="text" name="Park Name" id="name" />
+    
+                    </div>
+    
+                    <div>
+                        <label for="park-image">Park Image: </label>
+                        <input type="text" name="Park Image" id="park-image" />
+                    </div>
+    
+                    <div>
+                        <label for="park-lat">Park Lat: </label>
+                        <input type="text" name="latitude" id="latitude" />
+                    </div>
+    
+                    <div>
+                        <label for="park-long">Park Long: </label>
+                        <input type="text" name="longtitude" id="longtitude" />
+                    </div>
+    
+                    <div>
+                        <select name="Category" id="category">
+                            <option value="National Park">National Park</option>
+                            <option value="State Park">State Park</option>
+                            <option value="Local Park">Local Park</option>
+                            <option value="Trail">Trail</option>
+                        </select>
+                    </div>
+    
+                    <div>
+                        <label for="park-url">Park URL: </label>
+                        <input name="Park URL" id="park-url"></input>
+                    </div>
+    
+                    <div>
+                        <input type="submit" value="Create" />
+                    </div>
+                </form>
+    
+                <button id="add-park">Add A New Park!</button>
+            </div>
+
             </div>
             <div id="details"></div>
 
-            <form id="new-park">
+            <!-- <form id="new-park">
                 <h4>Add New Parks/Trails</h4>
                 <div>
                     <label for="name">Park Name: </label>
@@ -89,7 +135,7 @@
             </form>
 
             <button id="add-park">Add A New Park!</button>
-        </div>
+        </div> -->
 
     </body>
 </html>
