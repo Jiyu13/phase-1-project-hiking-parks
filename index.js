@@ -3,12 +3,13 @@ const parkUrl = `${BASE_URL}/activities/parks?id=BFF8C027-7C8F-480B-A5F8-CD8CE49
 
 document.addEventListener("DOMContentLoaded", () => {
     
+    const newParkForm = document.querySelector("#new-park")
+
     getParks()
     .then(parks => getVAParks(parks))
     .then(vaParks => vaParks.forEach(jsonPark => renderPark(jsonPark)))
 
     // add new park btn
-    const newParkForm = document.querySelector("#new-park")
     newParkForm.style.display = "none"
 
     const addParkBtn = document.querySelector("#add-park")
@@ -17,12 +18,10 @@ document.addEventListener("DOMContentLoaded", () => {
         newParkForm.addEventListener("submit", (event) => {
             event.preventDefault()
             storeNewPark(event.target)
+            newParkForm.reset()
         })
-        newParkForm.reset()
-
     })
     
-
 
     // checkbox
     const freeCheckBox = document.querySelector(".free")
@@ -63,6 +62,7 @@ function newCard(parkData) {
         operatingHourExceptions: null
     }
     createParkContainer(parkObj)
+
 }
 
 let newParks = []
@@ -90,8 +90,6 @@ function getParkInfo(parkCode) {
     return fetch(`${BASE_URL}/parks?parkCode=${parkCode}&api_key=${API_KEY}`)
     .then(response => response.json())
 }
-
-
 
 function getParks() {
     return fetch(parkUrl)
