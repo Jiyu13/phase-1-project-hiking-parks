@@ -139,9 +139,30 @@ ul {
 }
 
 #legend{
-    width: 260px;
+    width: 240px;
     position: absolute;
-    left: 280px;
+    left: 424px;
+}
+
+#categoryTitle{
+    position: absolute;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 24px;
+    top: 0px;
+    left: 58px;
+    font-weight: bold;
+}
+
+.filter{
+    position: absolute;
+    left: 20px;
+    top: 66px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.park-type{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
 }
 
 
