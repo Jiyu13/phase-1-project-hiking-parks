@@ -353,8 +353,10 @@ function createParkContainer(park) {
 
 
     // add event listener to parkTag
+    const detailsTag = document.querySelector("#details")
+    detailsTag.style.display = "none"
     parkTag.addEventListener("click", () => {
-        const detailsTag = document.querySelector("#details")
+        // const detailsTag = document.querySelector("#details")
 
         // create contents div for detail text content
         const contents = document.createElement("div")
