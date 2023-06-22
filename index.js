@@ -19,8 +19,12 @@ document.addEventListener("DOMContentLoaded", () => {
             event.preventDefault()
             storeNewPark(event.target)
             newParkForm.reset()
+            newParkForm.style.display = "none"
         })
     })
+    // Grayson Highlands State Park
+    
+    
     
     const newParkForn = document.querySelector("#new-park");
     addParkBtn.addEventListener("click", () => {
@@ -111,13 +115,15 @@ function getParks() {
 // store park type and add select feature
 function createparkType(designations) {
     const select = document.querySelector(".park-type")
+    const defaultOptionValues = [...select.options].map(opt => opt.value)
     for (let each of designations) {
         const option = document.createElement("option")
         if (each) {
-            
-            option.innerHTML = each
-            option.value = each
-            select.append(option)
+            if (!defaultOptionValues.includes(each)) {
+                option.innerHTML = each
+                option.value = each
+                select.append(option)
+            }
         } else {
             option.innerHTML = "Uncategorized "
             option.value = "Uncategorized"
@@ -282,7 +288,7 @@ function closure(park) {
 // set latitude
 function latitudeToPx(latitude) {
     const latPx = .0038; //this is the number of degrees latitude/pixel
-    const latDiff = 39.2 - latitude;
+    const latDiff = 39.1 - latitude;
     const latitudeInPx = latDiff/latPx;
     return latitudeInPx
 
@@ -291,7 +297,7 @@ function latitudeToPx(latitude) {
  // set longtitude
 function longitudeToPx(longitude) {
     const longPx = .00517; //this is the number of degrees longitude/pixel
-    const longDiff = Math.abs(-83.3 - (longitude));
+    const longDiff = Math.abs(-83.45 - (longitude));
     const longitudeInPx = longDiff/longPx;
     return longitudeInPx
 
